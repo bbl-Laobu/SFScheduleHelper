@@ -8,5 +8,5 @@ option 1: Create Nuget Package and import into your project
 Option 1: Copy and Paste the RuleToProperties Class into your project 
 
 ## Links
-Plugin docs: https://help.syncfusion.com/xamarin/sfschedule/overview
-Specific Recurrence Doc: https://help.syncfusion.com/xamarin/sfschedule/data-bindings#recurrence-appointment
+Appointment Recurrence Docs: https://help.syncfusion.com/xamarin/sfschedule/data-bindings#recurrence-appointment
+Plugin Docs: https://help.syncfusion.com/xamarin/sfschedule/overview
