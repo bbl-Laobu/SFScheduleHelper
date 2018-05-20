@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>Kareke.SFScheduleHelper</PackageId>
+    <PackageVersion>0.1.0</PackageVersion>
+    <Authors>BBL-Laobu</Authors>
+    <Owners>BBL_Laobu</Owners>
+    <Summary>Xamarin.Forms Syncfusion SFSchedule Helper for recurring appointments.</Summary>
+    <Title>Xamarin.Forms Syncfusion SFSchedule Helper </Title>
+    <Description>Syncfusion Xamarin.Forms SFSchedule Helper for recurring appointments.</Description>
+    <RootNamespace>Kareke.SFScheduleHelper</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="16.1.0.37" />
+  </ItemGroup>
+</Project>
