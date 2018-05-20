@@ -3,7 +3,7 @@ Xamarin.Forms Syncfusion SFSchedule Helper methods for recurring appointments
 
 Fully unit tested Rule To Properties converter for reccuring Appointments.
 
-## How to use:
+## How to use
 option 1: Create Nuget Package and import into your project
 Option 1: Copy and Paste the RuleToProperties Class into your project 
 
