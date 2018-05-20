@@ -33,7 +33,7 @@ namespace Kareke.SFScheduleHelper
 		public static string ErrorMessage { get; set; }
       
 
-		public static RecurrenceProperties ConvertRule(string rule, DateTime startDate)
+		public static RecurrenceProperties Convert(string rule, DateTime startDate)
 		{
 			_rule = rule;
             _startDate = startDate;
@@ -358,6 +358,15 @@ namespace Kareke.SFScheduleHelper
 						SetMonthlyWeekDayRule(byDay[0]);
 						break;
 				}
+			} else
+			{
+				switch (freq)
+                {
+                    case RecurrenceType.Weekly:
+						int weekday = (int)recurrenceProperties.RangeStartDate.DayOfWeek;
+						SetWeeklyWeekDayRule(weekday);
+                        break;
+                }
 			}
 
 			// BYMONTHDAY set
@@ -425,6 +434,21 @@ namespace Kareke.SFScheduleHelper
             }
         }
 
+		static void SetWeeklyWeekDayRule(int weekDay)
+        {
+            switch (weekDay)
+            {
+                case 0: recurrenceProperties.IsWeeklySunday = true; break;
+                case 1: recurrenceProperties.IsWeeklyMonday = true; break;
+                case 2: recurrenceProperties.IsWeeklyTuesday = true; break;
+                case 3: recurrenceProperties.IsWeeklyWednesday = true; break;
+                case 4: recurrenceProperties.IsWeeklyThursday = true; break;
+                case 5: recurrenceProperties.IsWeeklyFriday = true; break;
+                case 6: recurrenceProperties.IsWeeklySaturday = true; break;
+                default: break;
+            }
+        }
+
 		static void SetMonthlyWeekDayRule(string weekDay)
         {
             weekDay = string.IsNullOrEmpty(weekDay) ? string.Empty : weekDay.ToUpper().Trim();
@@ -440,5 +464,7 @@ namespace Kareke.SFScheduleHelper
 				default: break;
             }
         }
+
+
 	}
 }

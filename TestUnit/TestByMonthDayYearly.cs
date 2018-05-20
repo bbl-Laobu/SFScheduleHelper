@@ -12,7 +12,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
 
 			Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
 			StringAssert.Contains("BYMONTHDAY has non valid value ", RuleToPropertiesConverter.ErrorMessage);
@@ -23,7 +23,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=wrong#;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
 
 			Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
 			StringAssert.Contains("BYMONTHDAY has non valid value ", RuleToPropertiesConverter.ErrorMessage);
@@ -34,7 +34,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=0;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
 
             Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
             StringAssert.Contains("BYMONTHDAY has non valid value ", RuleToPropertiesConverter.ErrorMessage);
@@ -45,7 +45,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=32;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
 
             Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
             StringAssert.Contains("BYMONTHDAY has non valid value ", RuleToPropertiesConverter.ErrorMessage);
@@ -56,7 +56,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=-1;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
 
             Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
             StringAssert.Contains("BYMONTHDAY has non valid value ", RuleToPropertiesConverter.ErrorMessage);
@@ -67,7 +67,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=-31;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
 
             Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
             StringAssert.Contains("BYMONTHDAY has non valid value ", RuleToPropertiesConverter.ErrorMessage);
@@ -78,7 +78,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=1;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+			RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
          
 			Assert.AreEqual(false, props.IsMonthlySpecific);
 			Assert.AreEqual(1, props.YearlySpecificMonthDay);
@@ -89,7 +89,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=15;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
          
 			Assert.AreEqual(false, props.IsMonthlySpecific);
 			Assert.AreEqual(15, props.YearlySpecificMonthDay);
@@ -100,7 +100,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=31;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
          
 			Assert.AreEqual(false, props.IsMonthlySpecific);
 			Assert.AreEqual(31, props.YearlySpecificMonthDay);
@@ -111,7 +111,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=YEARLY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.ConvertRule(rule, startDate);
+            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
          
 			Assert.AreEqual(false, props.IsMonthlySpecific);
 			Assert.AreEqual(0, props.YearlySpecificMonthDay);
