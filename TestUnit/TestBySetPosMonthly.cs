@@ -12,10 +12,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-			Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-			StringAssert.Contains("BYSETPOS has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+			Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("BYSETPOS has non valid value ", RecurrenceConverter.ErrorMessage);
         }
 
 		[Test()]
@@ -23,10 +23,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS=wrong#;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-			Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-			StringAssert.Contains("BYSETPOS has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+			Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("BYSETPOS has non valid value ", RecurrenceConverter.ErrorMessage);
         }
         
 		[Test()]
@@ -34,10 +34,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS=0;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-			StringAssert.Contains("BYSETPOS has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+            Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("BYSETPOS has non valid value ", RecurrenceConverter.ErrorMessage);
         }  
 
 		[Test()]
@@ -45,10 +45,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS=53;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-			StringAssert.Contains("BYSETPOS has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+            Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("BYSETPOS has non valid value ", RecurrenceConverter.ErrorMessage);
         }  
 
 		[Test()]
@@ -56,10 +56,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS=-1;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-			StringAssert.Contains("BYSETPOS has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+            Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("BYSETPOS has non valid value ", RecurrenceConverter.ErrorMessage);
         }
 
 		[Test()]
@@ -67,10 +67,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS=-31;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-			StringAssert.Contains("BYSETPOS has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+            Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("BYSETPOS has non valid value ", RecurrenceConverter.ErrorMessage);
         }
 
 		[Test()]
@@ -78,7 +78,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS=1;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
          
 			Assert.AreEqual(1, props.MonthlyNthWeek);
         }   
@@ -88,7 +88,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS=26;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
          
 			Assert.AreEqual(26, props.MonthlyNthWeek);
         }   
@@ -98,7 +98,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;BYSETPOS=52;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
          
 			Assert.AreEqual(52, props.MonthlyNthWeek);
         } 
@@ -108,7 +108,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=MONTHLY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
          
 			Assert.AreEqual(0, props.MonthlyNthWeek);
         } 

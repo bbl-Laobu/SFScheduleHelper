@@ -5,7 +5,7 @@ using Syncfusion.SfSchedule.XForms;
 
 namespace Kareke.SFScheduleHelper
 {
-	public static class RuleToPropertiesConverter
+	public static class RecurrenceConverter
 	{
 		static bool hasFreq;
 		static bool hasInterval;
@@ -360,13 +360,13 @@ namespace Kareke.SFScheduleHelper
 				}
 			} else
 			{
-				switch (freq)
-                {
-                    case RecurrenceType.Weekly:
-						int weekday = (int)recurrenceProperties.RangeStartDate.DayOfWeek;
-						SetWeeklyWeekDayRule(weekday);
-                        break;
-                }
+				//switch (freq)
+                //{
+                //    case RecurrenceType.Weekly:
+				//		int weekday = (int)recurrenceProperties.RangeStartDate.DayOfWeek;
+				//		SetWeeklyWeekDayRule(weekday);
+                //        break;
+                //}
 			}
 
 			// BYMONTHDAY set

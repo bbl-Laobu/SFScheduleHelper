@@ -12,10 +12,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=WEEKLY;UNTIL;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-			Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-			StringAssert.Contains("UNTIL has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+			Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("UNTIL has non valid value ", RecurrenceConverter.ErrorMessage);
         }
              
 		[Test()]
@@ -23,10 +23,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=WEEKLY;UNTIL=wrong#;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-			Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-			StringAssert.Contains("UNTIL has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+			Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("UNTIL has non valid value ", RecurrenceConverter.ErrorMessage);
         }
 
 		[Test()]
@@ -34,10 +34,10 @@ namespace TestUnit
         {
             string rule = "FREQ=WEEKLY;UNTIL=15/33/2018";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(true, RuleToPropertiesConverter.HasError);
-            StringAssert.Contains("UNTIL has non valid value ", RuleToPropertiesConverter.ErrorMessage);
+            Assert.AreEqual(true, RecurrenceConverter.HasError);
+            StringAssert.Contains("UNTIL has non valid value ", RecurrenceConverter.ErrorMessage);
         }
         
 		[Test()]
@@ -45,7 +45,7 @@ namespace TestUnit
         {   
 			string rule = "FREQ=DAILY;UNTIL=10/15/2018;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
 			DateTime expectedDate = new DateTime(2018, 10, 15);
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType);
@@ -59,7 +59,7 @@ namespace TestUnit
         {   
 			string rule = "FREQ=Weekly;INTERVAL=2;COUNT=4;UNTIL=12/31/2018;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
 			DateTime expectedDate = new DateTime(2018, 12, 31);
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType);
@@ -75,7 +75,7 @@ namespace TestUnit
         {
             string rule = "FREQ=WEEKLY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RuleToPropertiesConverter.Convert(rule, startDate);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
             Assert.AreEqual(false, props.IsRangeEndDate);
             Assert.AreEqual(true, props.IsRangeNoEndDate);
