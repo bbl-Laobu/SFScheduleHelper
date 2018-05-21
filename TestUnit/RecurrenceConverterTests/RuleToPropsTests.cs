@@ -2,11 +2,11 @@
 using Kareke.SFScheduleHelper;
 using Syncfusion.SfSchedule.XForms;
 using System;
-namespace TestUnit
+namespace TestUnit.RecurrenceConverterTests
 {
 	[TestFixture()]
-	public class TestGeneral
-	{
+	public class RuleToPropsTests
+	{  
 		[Test()]
 		public void EmptyRule()
 		{
@@ -20,19 +20,19 @@ namespace TestUnit
 		}
 
 		// Test Methods Just Type
-        // ----------------------------------
+		// ----------------------------------
 		[Test()]
-        public void Daily()
-        {
-            string rule = "FREQ=DAILY;";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+		public void Daily()
+		{
+			string rule = "FREQ=DAILY;";
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(1, props.DailyNDays, "DailyNDays");
-            Assert.AreEqual(true, props.IsDailyEveryNDays, "IsDailyEveryNDays");
-            Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
-        }
+			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(1, props.DailyNDays, "DailyNDays");
+			Assert.AreEqual(true, props.IsDailyEveryNDays, "IsDailyEveryNDays");
+			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+		}
 
 		[Test()]
 		public void Weekly()
@@ -48,18 +48,18 @@ namespace TestUnit
 		}
 
 		[Test()]
-        public void Monthly()
-        {
+		public void Monthly()
+		{
 			string rule = "FREQ=Monthly;";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-            //Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
-            //Assert.AreEqual(1, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
-            Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
-        }
+			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			//Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
+			//Assert.AreEqual(1, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
+			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+		}
 
 		// Test Methods from SFSchedule Docs
 		// ----------------------------------
@@ -255,126 +255,126 @@ namespace TestUnit
 		}
 
 		[Test()]
-        public void MonthlyExample2()
-        {
+		public void MonthlyExample2()
+		{
 			string rule = "FREQ=MONTHLY; BYMONTHDAY=16; INTERVAL=1; COUNT=10";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-            Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
-            Assert.AreEqual(16, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
+			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
+			Assert.AreEqual(16, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
 			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
 			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
-        }
+		}
 
 		[Test()]
-        public void MonthlyExample3()
-        {
+		public void MonthlyExample3()
+		{
 			string rule = "FREQ=MONTHLY; BYMONTHDAY=16; INTERVAL=1; UNTIL=06/11/2018";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-            Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
-            Assert.AreEqual(16, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
+			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
+			Assert.AreEqual(16, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
 			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
 			Assert.AreEqual(new DateTime(2018, 06, 11), props.RangeEndDate, "RangeEndDate");
-        }
+		}
 
 		[Test()]
-        public void MonthlyExample4()
-        {
+		public void MonthlyExample4()
+		{
 			string rule = "FREQ=MONTHLY; BYDAY=FR; BYSETPOS=2; INTERVAL=1";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
 			Assert.AreEqual(2, props.MonthlyNthWeek, "MonthlyNthWeek");
 			Assert.AreEqual(6, props.MonthlyWeekDay, "MonthlyWeekDay");
 			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
-        }
+		}
 
 		[Test()]
-        public void MonthlyExample5()
-        {
+		public void MonthlyExample5()
+		{
 			string rule = "FREQ=MONTHLY; BYDAY=WE; BYSETPOS=4; INTERVAL=1; COUNT=10";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-            Assert.AreEqual(4, props.MonthlyNthWeek, "MonthlyNthWeek");
-            Assert.AreEqual(4, props.MonthlyWeekDay, "MonthlyWeekDay");
+			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			Assert.AreEqual(4, props.MonthlyNthWeek, "MonthlyNthWeek");
+			Assert.AreEqual(4, props.MonthlyWeekDay, "MonthlyWeekDay");
 			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
 			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
-        }
+		}
 
 		[Test()]
-        public void MonthlyExample6()
-        {
+		public void MonthlyExample6()
+		{
 			string rule = "FREQ=MONTHLY; BYDAY=FR; BYSETPOS=4; INTERVAL=1; UNTIL=06/11/2018";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-            Assert.AreEqual(4, props.MonthlyNthWeek, "MonthlyNthWeek");
-            Assert.AreEqual(6, props.MonthlyWeekDay, "MonthlyWeekDay");
+			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			Assert.AreEqual(4, props.MonthlyNthWeek, "MonthlyNthWeek");
+			Assert.AreEqual(6, props.MonthlyWeekDay, "MonthlyWeekDay");
 			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
-            Assert.AreEqual(new DateTime(2018, 06, 11), props.RangeEndDate, "RangeEndDate");
-        }
+			Assert.AreEqual(new DateTime(2018, 06, 11), props.RangeEndDate, "RangeEndDate");
+		}
 
 		// YEARLY Tests
-        // -------------
-        [Test()]
-        public void YearlyExample1()
-        {
+		// -------------
+		[Test()]
+		public void YearlyExample1()
+		{
 			string rule = "FREQ=YEARLY; BYMONTHDAY=15; BYMONTH=12; INTERVAL=1";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
 			Assert.AreEqual(true, props.IsYearlySpecific, "IsYearlySpecific ");
 			Assert.AreEqual(1, props.YearlyEveryNYears, "YearlyEveryNYears");
 			Assert.AreEqual(12, props.YearlySpecificMonth, "YearlySpecificMonth");
 			Assert.AreEqual(15, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
 			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
-        }
+		}
 
 		[Test()]
-        public void YearlyExample2()
-        {
+		public void YearlyExample2()
+		{
 			string rule = "FREQ=YEARLY; BYMONTHDAY=10; BYMONTH=12; INTERVAL=1; COUNT=10";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(true, props.IsYearlySpecific, "IsYearlySpecific ");
-            Assert.AreEqual(1, props.YearlyEveryNYears, "YearlyEveryNYears");
-            Assert.AreEqual(12, props.YearlySpecificMonth, "YearlySpecificMonth");
-            Assert.AreEqual(10, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
+			Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(true, props.IsYearlySpecific, "IsYearlySpecific ");
+			Assert.AreEqual(1, props.YearlyEveryNYears, "YearlyEveryNYears");
+			Assert.AreEqual(12, props.YearlySpecificMonth, "YearlySpecificMonth");
+			Assert.AreEqual(10, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
 			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
 			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
-        }
+		}
 
 		[Test()]
-        public void YearlyExample3()
-        {
+		public void YearlyExample3()
+		{
 			string rule = "FREQ=YEARLY; BYMONTHDAY=12; BYMONTH=12; INTERVAL=1; UNTIL=06/11/2018";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
 
-            Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
-            Assert.AreEqual(true, props.IsYearlySpecific, "IsYearlySpecific ");
-            Assert.AreEqual(1, props.YearlyEveryNYears, "YearlyEveryNYears");
-            Assert.AreEqual(12, props.YearlySpecificMonth, "YearlySpecificMonth");
-            Assert.AreEqual(12, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
+			Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
+			Assert.AreEqual(true, props.IsYearlySpecific, "IsYearlySpecific ");
+			Assert.AreEqual(1, props.YearlyEveryNYears, "YearlyEveryNYears");
+			Assert.AreEqual(12, props.YearlySpecificMonth, "YearlySpecificMonth");
+			Assert.AreEqual(12, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
 			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
 			Assert.AreEqual(new DateTime(2018, 06, 11), props.RangeEndDate, "RangeEndDate");
-        }
+		}      
 	}
 }

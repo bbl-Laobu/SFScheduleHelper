@@ -2,7 +2,7 @@
 using Kareke.SFScheduleHelper;
 using Syncfusion.SfSchedule.XForms;
 using System;
-namespace TestUnit
+namespace TestUnit.ParseRuleToPropsTest
 {
     [TestFixture()]
 	public class TestByDayWeekly
@@ -12,10 +12,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=WEEKLY;BYDAY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
-			Assert.AreEqual(true, RecurrenceConverter.HasError);
-			StringAssert.Contains("BYDAY has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("BYDAY has non valid value ", ParseRuleToProps.ErrorMessage);
         }
 
 		[Test()]
@@ -23,10 +23,10 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;BYDAY=";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
-            Assert.AreEqual(true, RecurrenceConverter.HasError);
-            StringAssert.Contains("BYDAY has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("BYDAY has non valid value ", ParseRuleToProps.ErrorMessage);
         }  
         
 		[Test()]
@@ -34,10 +34,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=WEEKLY;BYDAY=wrong#;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
-			Assert.AreEqual(true, RecurrenceConverter.HasError);
-			StringAssert.Contains("BYDAY has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("BYDAY has non valid value ", ParseRuleToProps.ErrorMessage);
         }
 
 		[Test()]
@@ -45,10 +45,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=WEEKLY;BYDAY=MA";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
-            Assert.AreEqual(true, RecurrenceConverter.HasError);
-			StringAssert.Contains("BYDAY has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("BYDAY has non valid value ", ParseRuleToProps.ErrorMessage);
         }
         
 		[Test()]
@@ -56,7 +56,7 @@ namespace TestUnit
         {
             string rule = "FREQ=WEEKLY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
             Assert.AreEqual(false, props.IsWeeklyMonday);
@@ -72,7 +72,7 @@ namespace TestUnit
         {   
 			string rule = "FREQ=WEEKLY;BYDAY=su";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(true, props.IsWeeklySunday);
             Assert.AreEqual(false, props.IsWeeklyMonday);
@@ -88,7 +88,7 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;BYDAY=mo";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
             Assert.AreEqual(true, props.IsWeeklyMonday);
@@ -104,7 +104,7 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;byday=TU";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
 			Assert.AreEqual(false, props.IsWeeklyMonday);
@@ -120,7 +120,7 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;BYDAY=wE";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
 			Assert.AreEqual(false, props.IsWeeklyMonday);
@@ -136,7 +136,7 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;BYDAY=Th";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
 			Assert.AreEqual(false, props.IsWeeklyMonday);
@@ -152,7 +152,7 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;BYDAY=FR";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
 			Assert.AreEqual(false, props.IsWeeklyMonday);
@@ -168,7 +168,7 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;BYDAY=SA";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
 			Assert.AreEqual(false, props.IsWeeklyMonday);
@@ -184,7 +184,7 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;BYDAY=MO,WE,FR";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
             Assert.AreEqual(true, props.IsWeeklyMonday);
@@ -200,7 +200,7 @@ namespace TestUnit
         {   
 			string rule = "FREQ=WEEKLY;BYDAY=MO,WE,FR,MO,WE,FR";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
             Assert.AreEqual(false, props.IsWeeklySunday);
             Assert.AreEqual(true, props.IsWeeklyMonday);
@@ -216,7 +216,7 @@ namespace TestUnit
         {   
             string rule = "FREQ=WEEKLY;BYDAY=MO,WE,FR,SU,SA,TU,TH";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
 			Assert.AreEqual(true, props.IsWeeklySunday);
             Assert.AreEqual(true, props.IsWeeklyMonday);

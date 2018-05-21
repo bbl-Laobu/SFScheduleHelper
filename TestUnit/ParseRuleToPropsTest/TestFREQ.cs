@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Syncfusion.SfSchedule.XForms;
 using System;
-namespace TestUnit
+namespace TestUnit.ParseRuleToPropsTest
 {
     [TestFixture()]
     public class TestFREQ
@@ -12,10 +12,10 @@ namespace TestUnit
         {
 			string rule = "FREQ;;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
-			Assert.AreEqual(true, RecurrenceConverter.HasError);
-			StringAssert.Contains("FREQ has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("FREQ has non valid value ", ParseRuleToProps.ErrorMessage);
         }
 
 		[Test()]
@@ -23,10 +23,10 @@ namespace TestUnit
         {
             string rule = "FREQ=wrong#;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
-            Assert.AreEqual(true, RecurrenceConverter.HasError);
-			StringAssert.Contains("FREQ has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("FREQ has non valid value ", ParseRuleToProps.ErrorMessage);
         }
 
         [Test()]
@@ -34,7 +34,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=DAILY;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
          
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType);
         }
@@ -44,7 +44,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=WEEKLY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType);
         }
@@ -54,7 +54,7 @@ namespace TestUnit
         {
             string rule = "FREQ=monthly;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType);
         }
@@ -64,7 +64,7 @@ namespace TestUnit
         {
             string rule = "freq=yearly;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType);
         }

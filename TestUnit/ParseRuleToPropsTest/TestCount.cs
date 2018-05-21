@@ -2,7 +2,7 @@
 using Kareke.SFScheduleHelper;
 using Syncfusion.SfSchedule.XForms;
 using System;
-namespace TestUnit
+namespace TestUnit.ParseRuleToPropsTest
 {
     [TestFixture()]
     public class TestCount
@@ -12,10 +12,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=WEEKLY;COUNT;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
-			Assert.AreEqual(true, RecurrenceConverter.HasError);
-			StringAssert.Contains("COUNT has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("COUNT has non valid value ", ParseRuleToProps.ErrorMessage);
         }
 
 		[Test()]
@@ -23,10 +23,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=WEEKLY;COUNT=wrong#;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
-			Assert.AreEqual(true, RecurrenceConverter.HasError);
-			StringAssert.Contains("COUNT has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("COUNT has non valid value ", ParseRuleToProps.ErrorMessage);
         }
         
 		[Test()]
@@ -34,7 +34,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=DAILY;COUNT=2;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
          
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType);
 			Assert.AreEqual(1, props.DailyNDays);
@@ -47,7 +47,7 @@ namespace TestUnit
         {
 			string rule = "FREQ=Weekly;INTERVAL=2;COUNT=4;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
          
             Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType);
             Assert.AreEqual(2, props.WeeklyEveryNWeeks);
@@ -60,7 +60,7 @@ namespace TestUnit
         {
             string rule = "FREQ=DAILY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
          
             Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType);
             Assert.AreEqual(1, props.DailyNDays);
@@ -73,10 +73,10 @@ namespace TestUnit
         {
 			string rule = "FREQ=DAily;COUNT=-1;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
          
-			Assert.AreEqual(true, RecurrenceConverter.HasError);
-            StringAssert.Contains("COUNT has non valid value ", RecurrenceConverter.ErrorMessage);
+			Assert.AreEqual(true, ParseRuleToProps.HasError);
+			StringAssert.Contains("COUNT has non valid value ", ParseRuleToProps.ErrorMessage);
         } 
     }
 }
