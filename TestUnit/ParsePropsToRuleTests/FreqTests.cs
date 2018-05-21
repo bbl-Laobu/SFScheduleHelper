@@ -2,33 +2,11 @@
 using NUnit.Framework;
 using Syncfusion.SfSchedule.XForms;
 using System;
-namespace TestUnit.ParseRuleToPropsTest
+namespace TestUnit.ParsePropsToRuleTests
 {
     [TestFixture()]
-    public class TestFREQ
+    public class FreqTests
     {
-		[Test()]
-		public void InValidEmpty()
-        {
-			string rule = "FREQ;;";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
-
-			Assert.AreEqual(true, ParseRuleToProps.HasError);
-			StringAssert.Contains("FREQ has non valid value ", ParseRuleToProps.ErrorMessage);
-        }
-
-		[Test()]
-        public void Invalid()
-        {
-            string rule = "FREQ=wrong#;";
-            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
-
-			Assert.AreEqual(true, ParseRuleToProps.HasError);
-			StringAssert.Contains("FREQ has non valid value ", ParseRuleToProps.ErrorMessage);
-        }
-
         [Test()]
         public void ValidDaily()
         {
@@ -36,7 +14,9 @@ namespace TestUnit.ParseRuleToPropsTest
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
          
-			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType);
+			string ruleResult = RecurrenceConverter.Convert(props);
+
+			Assert.AreEqual("FREQ=DAILY;INTERVAL=1;", ruleResult); 
         }
 
 		[Test()]
@@ -46,7 +26,9 @@ namespace TestUnit.ParseRuleToPropsTest
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
             
-			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType);
+			string ruleResult = RecurrenceConverter.Convert(props);
+
+			Assert.AreEqual("FREQ=WEEKLY;INTERVAL=1;", ruleResult);
         }
 
 		[Test()]
@@ -56,7 +38,9 @@ namespace TestUnit.ParseRuleToPropsTest
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
-			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType);
+			string ruleResult = RecurrenceConverter.Convert(props);
+
+            Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;", ruleResult);
         }
 
 		[Test()]
@@ -66,7 +50,9 @@ namespace TestUnit.ParseRuleToPropsTest
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
 
-			Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType);
+			string ruleResult = RecurrenceConverter.Convert(props);
+
+            Assert.AreEqual("FREQ=YEARLY;INTERVAL=1;", ruleResult);
         }
     }
 }

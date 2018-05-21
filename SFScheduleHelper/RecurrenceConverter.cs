@@ -16,5 +16,13 @@ namespace Kareke.SFScheduleHelper
 			ErrorMessage = ParseRuleToProps.ErrorMessage;
 			return props;
         }
+        
+		public static string Convert(RecurrenceProperties properties)
+        {
+			string rule = ParsePropsToRule.Convert(properties);
+			HasError = ParsePropsToRule.HasError;
+			ErrorMessage = ParsePropsToRule.ErrorMessage;
+			return rule;
+        }
     }
 }

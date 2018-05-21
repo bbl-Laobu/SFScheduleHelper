@@ -48,17 +48,28 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ParseRuleToPropsTest\TestByDayMonthly.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestByDayWeekly.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestByMonth.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestByMonthDayMonthly.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestByMonthDayYearly.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestBySetPosMonthly.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestCount.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestFREQ.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestInterval.cs" />
-    <Compile Include="ParseRuleToPropsTest\TestUntil.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestByDayMonthly.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestByDayWeekly.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestByMonth.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestByMonthDayMonthly.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestByMonthDayYearly.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestBySetPosMonthly.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestCount.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestFREQ.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestInterval.cs" />
+    <Compile Include="ParseRuleToPropsTests\TestUntil.cs" />
     <Compile Include="RecurrenceConverterTests\RuleToPropsTests.cs" />
+    <Compile Include="RecurrenceConverterTests\PropsToRuleTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\FreqTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\IntervalTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\CountTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\UntilTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\ByDayMonthlyTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\ByDayWeeklyTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\ByMonthDayMonthlyTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\ByMonthDayYearlyTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\ByMonthTests.cs" />
+    <Compile Include="ParsePropsToRuleTests\BySetPosMonthlyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFScheduleHelper\SFScheduleHelper.csproj">
@@ -68,7 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="RecurrenceConverterTests\" />
-    <Folder Include="ParseRuleToPropsTest\" />
+    <Folder Include="ParseRuleToPropsTests\" />
+    <Folder Include="ParsePropsToRuleTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.280\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.280\build\netstandard1.0\Xamarin.Forms.targets')" />
