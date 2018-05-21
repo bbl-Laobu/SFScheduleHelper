@@ -11,7 +11,6 @@ namespace Kareke.SFScheduleHelper
 	{
 		// ParseRuleToProps
 		static bool hasFreq;
-		static bool hasInterval;
 		static bool hasCount;
 		static bool hasUntil;
 		static bool hasByDay;
@@ -64,10 +63,10 @@ namespace Kareke.SFScheduleHelper
 			ClearValues();
 			_rule = _rule.ToUpper().Trim();
 
-			char[] propertySeperator = new char[1] { ';' };
+			char[] propertySeperator = { ';' };
 			string[] ruleProperties = _rule.Split(propertySeperator);
 
-			char[] keyValueSeparator = new char[1] { '=' };
+			char[] keyValueSeparator = { '=' };
 
             // Loop through all found properties
 			for (int i = 0; i < ruleProperties.Length; i++)
@@ -85,7 +84,6 @@ namespace Kareke.SFScheduleHelper
 
 					case "INTERVAL":
 						if (!SetInterval(value)) return false;
-						hasInterval = true;
 						break;
 
 					case "COUNT":
@@ -133,7 +131,6 @@ namespace Kareke.SFScheduleHelper
 		static void ClearValues()
         {
             hasFreq = false;
-            hasInterval = false;
             hasCount = false;
             hasUntil = false;
             hasByDay = false;
@@ -180,7 +177,7 @@ namespace Kareke.SFScheduleHelper
 		static bool SetInterval(string value)
 		{
 			interval = StrintToInt(value);
-            if (interval == -1) { HasError = true; ErrorMessage = "INTERVAL has non valid value " + value; ; return false; }
+            if (interval == -1) { HasError = true; ErrorMessage = "INTERVAL has non valid value " + value; return false; }
 			return true;
 		}
 
@@ -188,7 +185,7 @@ namespace Kareke.SFScheduleHelper
 		static bool SetCount(string value)
         {
 			count = StrintToInt(value);
-            if (count == -1) { HasError = true; ErrorMessage = "COUNT has non valid value " + value; ; return false; }
+            if (count == -1) { HasError = true; ErrorMessage = "COUNT has non valid value " + value; return false; }
             return true;
         }      
 
@@ -196,14 +193,14 @@ namespace Kareke.SFScheduleHelper
 		static bool SetUntil(string value)
         {
 			until = StringToDate(value);
-            if (until == DateTime.MinValue) { HasError = true; ErrorMessage = "UNTIL has non valid value " + value; ; return false; }
+            if (until == DateTime.MinValue) { HasError = true; ErrorMessage = "UNTIL has non valid value " + value; return false; }
             return true;
         }  
 
         // BYDAY parse
 		static bool SetByDayList(string dayString)
         {
-            char[] daySeperator = new char[1] { ',' };
+            char[] daySeperator = { ',' };
             string[] weekDays = dayString.Split(daySeperator);
 
             if (weekDays == null && weekDays.Length == 0) { HasError = true; ErrorMessage = "BYDAY has non valid value " + dayString; return false; }
@@ -224,7 +221,7 @@ namespace Kareke.SFScheduleHelper
         static bool SetByMonthDay(string value)
         {
             byMonthDay = StrintToInt(value);
-			if (byMonthDay < 1 || byMonthDay > 31) { HasError = true; ErrorMessage = "BYMONTHDAY has non valid value " + value; ; return false; }
+			if (byMonthDay < 1 || byMonthDay > 31) { HasError = true; ErrorMessage = "BYMONTHDAY has non valid value " + value; return false; }
             return true;
         } 
 
@@ -232,7 +229,7 @@ namespace Kareke.SFScheduleHelper
         static bool SetByMonth(string value)
         {
             byMonth = StrintToInt(value);
-			if (byMonth < 1 || byMonth > 12) { HasError = true; ErrorMessage = "BYMONTH has non valid value " + value; ; return false; }
+			if (byMonth < 1 || byMonth > 12) { HasError = true; ErrorMessage = "BYMONTH has non valid value " + value; return false; }
             return true;
         } 
 
@@ -240,7 +237,7 @@ namespace Kareke.SFScheduleHelper
         static bool SetBySetPos(string value)
         {
             bySetPos = StrintToInt(value);
-			if (bySetPos < 1 || bySetPos > 52) { HasError = true; ErrorMessage = "BYSETPOS has non valid value " + value; ; return false; }
+			if (bySetPos < 1 || bySetPos > 52) { HasError = true; ErrorMessage = "BYSETPOS has non valid value " + value; return false; }
             return true;
         } 
        
@@ -249,8 +246,7 @@ namespace Kareke.SFScheduleHelper
         // ---------------------
 		static int StrintToInt(string intString)
 		{
-			int numValue;
-			bool parsed = Int32.TryParse(intString, out numValue);
+			bool parsed = Int32.TryParse(intString, out int numValue);
 
 			if (parsed) return numValue;
 			else return -1;
@@ -259,7 +255,7 @@ namespace Kareke.SFScheduleHelper
 		static DateTime StringToDate(string dateString)
         {
 			DateTime untilDate; 
-			char[] dateSeperator = new char[1] { '/' };
+			char[] dateSeperator = { '/' };
 			string[] date = dateString.Split(dateSeperator);
 			if (date != null && date.Length == 3)
 			{

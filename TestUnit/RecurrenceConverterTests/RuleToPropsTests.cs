@@ -375,6 +375,18 @@ namespace TestUnit.RecurrenceConverterTests
 			Assert.AreEqual(12, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
 			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
 			Assert.AreEqual(new DateTime(2018, 06, 11), props.RangeEndDate, "RangeEndDate");
-		}      
+		}   
+
+		[Test()]
+        public void BuggyRule1()
+        {
+			string rule = "FREQ=DAILY;INTERVAL=COUNT=10;";
+            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+            RecurrenceProperties props = RecurrenceConverter.Convert(rule, startDate);
+
+            Assert.AreEqual(true, RecurrenceConverter.HasError);
+			StringAssert.Contains("INTERVAL has non valid value ", RecurrenceConverter.ErrorMessage);
+            Assert.AreEqual(startDate, props.RangeStartDate);
+        }
 	}
 }

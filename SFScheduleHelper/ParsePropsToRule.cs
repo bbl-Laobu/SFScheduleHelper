@@ -56,25 +56,27 @@ namespace Kareke.SFScheduleHelper
 
 			// INTERVAL
 			interval = "INTERVAL=";
+			int intervalValue = 1;
 			switch (_recurrenceProperties.RecurrenceType)
             {
                 case RecurrenceType.Daily:
 					if(_recurrenceProperties.DailyNDays > 0 &&  _recurrenceProperties.IsDailyEveryNDays) 
-						interval += _recurrenceProperties.DailyNDays.ToString() + ";";
+						intervalValue = _recurrenceProperties.DailyNDays;
                     break;
                 case RecurrenceType.Weekly:
 					if (_recurrenceProperties.WeeklyEveryNWeeks > 0) 
-						interval += _recurrenceProperties.WeeklyEveryNWeeks.ToString() + ";";
+						intervalValue = _recurrenceProperties.WeeklyEveryNWeeks;
                     break;
                 case RecurrenceType.Monthly:
 					if (_recurrenceProperties.MonthlyEveryNMonths > 0) 
-						interval += _recurrenceProperties.MonthlyEveryNMonths.ToString() + ";";
+						intervalValue = _recurrenceProperties.MonthlyEveryNMonths;
                     break;
                 case RecurrenceType.Yearly:
 					if (_recurrenceProperties.YearlyEveryNYears > 0) 
-						interval += _recurrenceProperties.YearlyEveryNYears.ToString() + ";";
+						intervalValue = _recurrenceProperties.YearlyEveryNYears;
                     break;
             }
+			interval += intervalValue + ";";
 
 			// COUNT
 			count = string.Empty;
