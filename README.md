@@ -2,7 +2,7 @@
 Xamarin.Forms Syncfusion SFSchedule Helper methods for recurring appointments
 
 ## Functions
-Fully unit tested Rule <=> Properties converter for reccuring Appointments.
+Rule <=> Properties converter for recurring appointments.
 
 ## How to use
 Rule=>Properties:<br/> 
