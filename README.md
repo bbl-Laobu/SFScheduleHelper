@@ -5,14 +5,14 @@ Xamarin.Forms Syncfusion SFSchedule Helper methods for recurring appointments
 Fully unit tested Rule <=> Properties converter for reccuring Appointments.
 
 ## How to use
-Rule=>Properties: 
-RecurrenceProperties properties = RecurrenceConverter.Convert(recurenceRule, startDate);
-
-Properties=>Rule: 
-string rule = RecurrenceConverter.Convert(recurrenceProperties); 
+Rule=>Properties:<br/> 
+RecurrenceProperties properties = RecurrenceConverter.Convert(recurenceRule, startDate);<br/>
+<br/>
+Properties=>Rule:<br/> 
+string rule = RecurrenceConverter.Convert(recurrenceProperties);<br/> 
 
 ## INSTALL
-option 1: Create Nuget Package and import into your project
+option 1: Create Nuget Package and import into your project<br/>
 Option 1: Copy and Paste the RuleToProperties Class into your project 
 
 ## Links
