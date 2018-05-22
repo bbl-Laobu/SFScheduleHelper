@@ -11,9 +11,9 @@ RecurrenceProperties properties = RecurrenceConverter.Convert(recurenceRule, sta
 Properties=>Rule:<br/> 
 string rule = RecurrenceConverter.Convert(recurrenceProperties);<br/> 
 
-## INSTALL
-option 1: Create Nuget Package and import into your project<br/>
-Option 1: Copy and Paste the RuleToProperties Class into your project 
+## Install
+Option 1: Copy and Paste the classes into your project 
+Option 2: Create Nuget Package and import into your project<br/>
 
 ## Links
 Appointment Recurrence Docs: https://help.syncfusion.com/xamarin/sfschedule/data-bindings#recurrence-appointment
