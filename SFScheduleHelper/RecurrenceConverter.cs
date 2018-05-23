@@ -1,27 +1,28 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using Syncfusion.SfSchedule.XForms;
 
 namespace Kareke.SFScheduleHelper
 {
-    public static class RecurrenceConverter
+    public class RecurrenceConverter
     {
-		public static bool HasError { get; set; }
-        public static string ErrorMessage { get; set; }
+		public bool HasError { get; set; }
+        public string ErrorMessage { get; set; }
 
-		public static RecurrenceProperties Convert(string rule, DateTime startDate)
+		public RecurrenceProperties Convert(string rule, DateTime startDate)
         {
-			RecurrenceProperties props =  ParseRuleToProps.Convert(rule, startDate);
-			HasError = ParseRuleToProps.HasError;
-			ErrorMessage = ParseRuleToProps.ErrorMessage;
+            ParseRuleToProps parser = new ParseRuleToProps();
+            RecurrenceProperties props =  parser.Convert(rule, startDate);
+            HasError = parser.HasError;
+            ErrorMessage = parser.ErrorMessage;
 			return props;
         }
         
-		public static string Convert(RecurrenceProperties properties)
+		public string Convert(RecurrenceProperties properties)
         {
-			string rule = ParsePropsToRule.Convert(properties);
-			HasError = ParsePropsToRule.HasError;
-			ErrorMessage = ParsePropsToRule.ErrorMessage;
+            ParsePropsToRule parser = new ParsePropsToRule();
+            string rule = parser.Convert(properties);
+            HasError = parser.HasError;
+            ErrorMessage = parser.ErrorMessage;
 			return rule;
         }
     }

@@ -7,15 +7,23 @@ namespace TestUnit.ParseRuleToPropsTests
     [TestFixture()]
     public class TestByMonthDayYearly
     {
+        ParseRuleToProps parser;
+
+        [SetUp]
+        public void Init()
+        {
+            parser = new ParseRuleToProps();
+        }
+
 		[Test()]
 		public void InValidEmpty()
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
 
-			Assert.AreEqual(true, ParseRuleToProps.HasError);
-			StringAssert.Contains("BYMONTHDAY has non valid value ", ParseRuleToProps.ErrorMessage);
+			Assert.AreEqual(true, parser.HasError);
+			StringAssert.Contains("BYMONTHDAY has non valid value ", parser.ErrorMessage);
         }
 
 		[Test()]
@@ -23,10 +31,10 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=wrong#;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
 
-			Assert.AreEqual(true, ParseRuleToProps.HasError);
-			StringAssert.Contains("BYMONTHDAY has non valid value ", ParseRuleToProps.ErrorMessage);
+			Assert.AreEqual(true, parser.HasError);
+			StringAssert.Contains("BYMONTHDAY has non valid value ", parser.ErrorMessage);
         }
         
 		[Test()]
@@ -34,10 +42,10 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=0;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
 
-			Assert.AreEqual(true, ParseRuleToProps.HasError);
-			StringAssert.Contains("BYMONTHDAY has non valid value ", ParseRuleToProps.ErrorMessage);
+			Assert.AreEqual(true, parser.HasError);
+			StringAssert.Contains("BYMONTHDAY has non valid value ", parser.ErrorMessage);
         }  
 
 		[Test()]
@@ -45,10 +53,10 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=32;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
 
-			Assert.AreEqual(true, ParseRuleToProps.HasError);
-			StringAssert.Contains("BYMONTHDAY has non valid value ", ParseRuleToProps.ErrorMessage);
+			Assert.AreEqual(true, parser.HasError);
+			StringAssert.Contains("BYMONTHDAY has non valid value ", parser.ErrorMessage);
         }  
 
 		[Test()]
@@ -56,10 +64,10 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=-1;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
 
-			Assert.AreEqual(true, ParseRuleToProps.HasError);
-			StringAssert.Contains("BYMONTHDAY has non valid value ", ParseRuleToProps.ErrorMessage);
+			Assert.AreEqual(true, parser.HasError);
+			StringAssert.Contains("BYMONTHDAY has non valid value ", parser.ErrorMessage);
         }
 
 		[Test()]
@@ -67,10 +75,10 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=-31;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
 
-			Assert.AreEqual(true, ParseRuleToProps.HasError);
-			StringAssert.Contains("BYMONTHDAY has non valid value ", ParseRuleToProps.ErrorMessage);
+			Assert.AreEqual(true, parser.HasError);
+			StringAssert.Contains("BYMONTHDAY has non valid value ", parser.ErrorMessage);
         }
 
 		[Test()]
@@ -78,7 +86,7 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=1;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
          
 			Assert.AreEqual(false, props.IsMonthlySpecific);
 			Assert.AreEqual(1, props.YearlySpecificMonthDay);
@@ -89,7 +97,7 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=15;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
          
 			Assert.AreEqual(false, props.IsMonthlySpecific);
 			Assert.AreEqual(15, props.YearlySpecificMonthDay);
@@ -100,7 +108,7 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;BYMONTHDAY=31;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
          
 			Assert.AreEqual(false, props.IsMonthlySpecific);
 			Assert.AreEqual(31, props.YearlySpecificMonthDay);
@@ -111,7 +119,7 @@ namespace TestUnit.ParseRuleToPropsTests
         {
 			string rule = "FREQ=YEARLY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
-			RecurrenceProperties props = ParseRuleToProps.Convert(rule, startDate);
+			RecurrenceProperties props = parser.Convert(rule, startDate);
          
 			Assert.AreEqual(false, props.IsMonthlySpecific);
 			Assert.AreEqual(0, props.YearlySpecificMonthDay);

@@ -7,25 +7,25 @@ using Syncfusion.SfSchedule.XForms;
 
 namespace Kareke.SFScheduleHelper
 {
-	internal static class ParsePropsToRule
+	internal class ParsePropsToRule
 	{
-		static string freq;
-		static string interval;
-		static string count;
-		static string until;
-		static string byDay;
-		static string byMonthDay;
-		static string byMonth;
-		static string bySetPos;
+		string freq;
+		string interval;
+		string count;
+		string until;
+		string byDay;
+		string byMonthDay;
+		string byMonth;
+		string bySetPos;
 
-		static string rule;       
-		static RecurrenceProperties _recurrenceProperties;
+		string rule;       
+		RecurrenceProperties _recurrenceProperties;
 
-		public static bool HasError { get; set; }
-		public static string ErrorMessage { get; set; }
+		public bool HasError { get; set; }
+		public string ErrorMessage { get; set; }
       
 
-		public static string Convert(RecurrenceProperties recurrenceProperties)
+		public string Convert(RecurrenceProperties recurrenceProperties)
 		{
 			_recurrenceProperties = recurrenceProperties;
 			// props is null
@@ -45,7 +45,7 @@ namespace Kareke.SFScheduleHelper
 
 		// Parse Rule Methods
         // --------------------------------------
-		static bool ParseProps()
+		bool ParseProps()
 		{
 			// FREQ
 			freq = "FREQ=";

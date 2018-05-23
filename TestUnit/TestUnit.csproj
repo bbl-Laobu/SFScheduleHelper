@@ -70,6 +70,7 @@
     <Compile Include="ParsePropsToRuleTests\ByMonthDayYearlyTests.cs" />
     <Compile Include="ParsePropsToRuleTests\ByMonthTests.cs" />
     <Compile Include="ParsePropsToRuleTests\BySetPosMonthlyTests.cs" />
+    <Compile Include="RecurrencesCalculatorTests\DailyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFScheduleHelper\SFScheduleHelper.csproj">
@@ -81,6 +82,7 @@
     <Folder Include="RecurrenceConverterTests\" />
     <Folder Include="ParseRuleToPropsTests\" />
     <Folder Include="ParsePropsToRuleTests\" />
+    <Folder Include="RecurrencesCalculatorTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.280\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.280\build\netstandard1.0\Xamarin.Forms.targets')" />
