@@ -6,10 +6,12 @@ Rule <=> Properties converter for recurring appointments.
 
 ## How to use
 Rule=>Properties:<br/> 
-RecurrenceProperties properties = RecurrenceConverter.Convert(recurenceRule, startDate);<br/>
+RecurrenceConverter converter = new RecurrenceConverter();<br/>
+RecurrenceProperties properties = converter.Convert(recurenceRule, startDate);<br/>
 <br/>
-Properties=>Rule:<br/> 
-string rule = RecurrenceConverter.Convert(recurrenceProperties); <br/> 
+Properties=>Rule:<br/>
+RecurrenceConverter converter = new RecurrenceConverter();<br/>
+string rule = converter.Convert(recurrenceProperties); <br/> 
 
 ## Install
 Option 1: Copy and Paste the classes into your project <br/>
