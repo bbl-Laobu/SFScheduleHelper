@@ -14,6 +14,7 @@ namespace Kareke.SFScheduleHelper
         DateTime _startDate;
         int _maxReturns;
         RecurrenceProperties properties;
+        int count;
 
         ObservableCollection<DateTime> recurrenceDates;
 
@@ -34,28 +35,28 @@ namespace Kareke.SFScheduleHelper
                 return null;
             }
 
-            int count = 1;
+            count = 1;
             DateTime nextDate = _startDate;
             while (((properties.IsRangeEndDate && nextDate <= properties.RangeEndDate)
                     || (properties.IsRangeNoEndDate && count <= properties.RangeRecurrenceCount))
                    && count <= _maxReturns)
             {
-                recurrenceDates.Add(nextDate);
-
                 switch (properties.RecurrenceType)
                 {
                     case RecurrenceType.Daily:
+                        recurrenceDates.Add(nextDate);
+                        count++;
                         nextDate = DailyCalculate(nextDate);
                         break;
 
                     case RecurrenceType.Weekly:
-                        nextDate = DailyCalculate(nextDate);
+                        nextDate = WeeklyCalculate(nextDate);
                         break;
                     default:
                         break;
                 }
 
-                count++;
+
             }
 
             return recurrenceDates;
@@ -68,7 +69,17 @@ namespace Kareke.SFScheduleHelper
 
         DateTime WeeklyCalculate(DateTime nextDate)
         {
-            return nextDate.AddDays(properties.DailyNDays);
+            if (nextDate.DayOfWeek == DayOfWeek.Sunday && properties.IsWeeklySunday) { recurrenceDates.Add(nextDate); count++; }
+            if (nextDate.DayOfWeek == DayOfWeek.Monday && properties.IsWeeklyMonday) { recurrenceDates.Add(nextDate); count++; }
+            if (nextDate.DayOfWeek == DayOfWeek.Tuesday && properties.IsWeeklyTuesday) { recurrenceDates.Add(nextDate); count++; }
+            if (nextDate.DayOfWeek == DayOfWeek.Wednesday && properties.IsWeeklyWednesday) { recurrenceDates.Add(nextDate); count++; }
+            if (nextDate.DayOfWeek == DayOfWeek.Thursday && properties.IsWeeklyThursday) { recurrenceDates.Add(nextDate); count++; }
+            if (nextDate.DayOfWeek == DayOfWeek.Friday && properties.IsWeeklyFriday) { recurrenceDates.Add(nextDate); count++; }
+            if (nextDate.DayOfWeek == DayOfWeek.Saturday && properties.IsWeeklySaturday) { recurrenceDates.Add(nextDate); count++; }
+
+            nextDate = nextDate.DayOfWeek == DayOfWeek.Saturday ? nextDate.AddDays(((properties.WeeklyEveryNWeeks - 1) * 7) + 1) : nextDate.AddDays(1);
+
+            return nextDate;
         }
     }
 }
