@@ -72,6 +72,7 @@
     <Compile Include="ParsePropsToRuleTests\BySetPosMonthlyTests.cs" />
     <Compile Include="RecurrencesCalculatorTests\DailyTests.cs" />
     <Compile Include="RecurrencesCalculatorTests\WeeklyTests.cs" />
+    <Compile Include="RecurrencesCalculatorTests\MonthlyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFScheduleHelper\SFScheduleHelper.csproj">

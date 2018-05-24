@@ -465,7 +465,5 @@ namespace Kareke.SFScheduleHelper
                 default: break;
             }
         }
-
-
     }
 }
