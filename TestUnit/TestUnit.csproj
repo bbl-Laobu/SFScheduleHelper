@@ -73,6 +73,7 @@
     <Compile Include="RecurrencesCalculatorTests\DailyTests.cs" />
     <Compile Include="RecurrencesCalculatorTests\WeeklyTests.cs" />
     <Compile Include="RecurrencesCalculatorTests\MonthlyTests.cs" />
+    <Compile Include="RecurrencesCalculatorTests\YearlyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFScheduleHelper\SFScheduleHelper.csproj">

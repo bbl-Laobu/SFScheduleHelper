@@ -16,7 +16,6 @@ namespace Kareke.SFScheduleHelper
         RecurrenceProperties properties;
         int count;
         DateTime nextDate;
-        int monthDay;
 
         ObservableCollection<DateTime> recurrenceDates;
 
@@ -37,7 +36,9 @@ namespace Kareke.SFScheduleHelper
                 return recurrenceDates;
             }
 
-            Init();
+            count = 1;
+            nextDate = _startDate;
+            //Init();
 
             while (((properties.IsRangeEndDate && nextDate <= properties.RangeEndDate)
                     || (properties.IsRangeNoEndDate && count <= properties.RangeRecurrenceCount))
@@ -78,10 +79,20 @@ namespace Kareke.SFScheduleHelper
                 case RecurrenceType.Monthly:
                     // For Specific MonthDay
                     // if First StartMonthday > monthDay => skip First month
-                    if (properties.IsMonthlySpecific &&
-                        properties.MonthlySpecificMonthDay > 0
-                        && properties.MonthlySpecificMonthDay <= 31
+                    if (properties.IsMonthlySpecific
+                        && properties.MonthlySpecificMonthDay > 0 && properties.MonthlySpecificMonthDay <= 31
                         && nextDate.Day > properties.MonthlySpecificMonthDay)
+                    {
+                        nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
+                        nextDate = new DateTime(nextDate.Year, nextDate.Month, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
+                    }
+                    break;
+                case RecurrenceType.Yearly:
+                    // For Specific MonthDay
+                    // if First StartMonthday > monthDay => skip First month
+                    if (properties.IsYearlySpecific
+                        && properties.YearlySpecificMonth >= 1 && properties.YearlySpecificMonth <= 12
+                        && nextDate.Day > properties.YearlySpecificMonthDay)
                     {
                         nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
                         nextDate = new DateTime(nextDate.Year, nextDate.Month, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
@@ -92,6 +103,8 @@ namespace Kareke.SFScheduleHelper
             }
         }
 
+        // DAILY
+        // ----------
         void DailyCalculate()
         {
             recurrenceDates.Add(nextDate);
@@ -99,6 +112,8 @@ namespace Kareke.SFScheduleHelper
             nextDate = nextDate.AddDays(properties.DailyNDays);
         }
 
+        // WEEKLY
+        // ----------
         void WeeklyCalculate()
         {
             if (nextDate.DayOfWeek == DayOfWeek.Sunday && properties.IsWeeklySunday) { recurrenceDates.Add(nextDate); count++; }
@@ -112,57 +127,37 @@ namespace Kareke.SFScheduleHelper
             nextDate = nextDate.DayOfWeek == DayOfWeek.Saturday ? nextDate.AddDays(((properties.WeeklyEveryNWeeks - 1) * 7) + 1) : nextDate.AddDays(1);
         }
 
+        // MONTHLY
+        // ----------
         void MonthlyCalculate()
         {
-            if (properties.IsMonthlySpecific &&
-                        properties.MonthlySpecificMonthDay > 0 && properties.MonthlySpecificMonthDay <= 31)
+            if (properties.IsMonthlySpecific && properties.MonthlySpecificMonthDay >= 1
+                && properties.MonthlySpecificMonthDay <= 31)
             {
-                monthDay = properties.MonthlySpecificMonthDay;
                 CalculateMonthlyBySpecificMonthDay();
             }
             else
             {
-                int currentYear = nextDate.Year;
-                int currentMonth = nextDate.Month;
-                DateTime monthStart = new DateTime(nextDate.Year, nextDate.Month, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
-                var monthStartWeekday = (int)(monthStart.DayOfWeek);
-                DateTime weekStartDate = monthStart.AddDays(-monthStartWeekday);
-
-                int nthWeek;
-                if (monthStartWeekday <= properties.MonthlyWeekDay) nthWeek = properties.MonthlyNthWeek - 1;
-                    else nthWeek = properties.MonthlyNthWeek;
-
-                nextDate = weekStartDate.AddDays((nthWeek) * 7);
-                nextDate = nextDate.AddDays(properties.MonthlyWeekDay);
-
-                if (currentMonth == nextDate.Month)
-                {
-                    if (nextDate.CompareTo(_startDate) < 0)
-                    {
-                        nextDate = nextDate.AddMonths(1);
-                    }
-                    else
-                    {
-                        recurrenceDates.Add(nextDate);
-                        count++;
-                        nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
-                    }
-                } else 
-                {
-                    nextDate = new DateTime(currentYear, currentMonth, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
-                    nextDate = nextDate.AddMonths(1);
-                }
+                CalculateMonthlyByDay();
             }
         }
 
-
         void CalculateMonthlyBySpecificMonthDay()
         {
+            // if First StartMonthday > monthDay => skip First month
+            if (properties.IsMonthlySpecific
+                        && properties.MonthlySpecificMonthDay > 0 && properties.MonthlySpecificMonthDay <= 31
+                        && nextDate.Day > properties.MonthlySpecificMonthDay)
+            {
+                nextDate = nextDate.AddMonths(1);
+                nextDate = new DateTime(nextDate.Year, nextDate.Month, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
+            }
+
             // 1 - 29
-            if (monthDay <= 29)
+            if (properties.MonthlySpecificMonthDay <= 29)
             {
                 // 29th of february
-                if (nextDate.Month == 2 && monthDay == 29)
+                if (nextDate.Month == 2 && properties.MonthlySpecificMonthDay == 29)
                 {
                     nextDate = new DateTime(nextDate.Year, nextDate.Month, DateTime.DaysInMonth(nextDate.Year, 2), nextDate.Hour, nextDate.Minute, nextDate.Second);
                     recurrenceDates.Add(nextDate);
@@ -172,13 +167,13 @@ namespace Kareke.SFScheduleHelper
                 else
                 {
                     // 1 - 29 
-                    nextDate = new DateTime(nextDate.Year, nextDate.Month, monthDay, nextDate.Hour, nextDate.Minute, nextDate.Second);
+                    nextDate = new DateTime(nextDate.Year, nextDate.Month, properties.MonthlySpecificMonthDay, nextDate.Hour, nextDate.Minute, nextDate.Second);
                     recurrenceDates.Add(nextDate);
                     count++;
                     nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
                 }
             }
-            else if (monthDay == 30)
+            else if (properties.MonthlySpecificMonthDay == 30)
             {
                 // 30 
                 if (nextDate.Month == 2) // check february
@@ -199,8 +194,106 @@ namespace Kareke.SFScheduleHelper
             }
         }
 
+        void CalculateMonthlyByDay()
+        {
+            int currentYear = nextDate.Year;
+            int currentMonth = nextDate.Month;
+            DateTime monthStart = new DateTime(nextDate.Year, nextDate.Month, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
+            var monthStartWeekday = (int)(monthStart.DayOfWeek);
+            DateTime weekStartDate = monthStart.AddDays(-monthStartWeekday);
+
+            int nthWeek;
+            if (monthStartWeekday <= properties.MonthlyWeekDay) nthWeek = properties.MonthlyNthWeek - 1;
+            else nthWeek = properties.MonthlyNthWeek;
+
+            nextDate = weekStartDate.AddDays((nthWeek) * 7);
+            nextDate = nextDate.AddDays(properties.MonthlyWeekDay);
+
+            if (currentMonth == nextDate.Month)
+            {
+                if (nextDate.CompareTo(_startDate) < 0)
+                {
+                    nextDate = nextDate.AddMonths(1);
+                }
+                else
+                {
+                    recurrenceDates.Add(nextDate);
+                    count++;
+                    nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
+                }
+            }
+            else
+            {
+                nextDate = new DateTime(currentYear, currentMonth, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
+                nextDate = nextDate.AddMonths(1);
+            }
+        }
+
+        // YEARLY
+        // ----------
         void YearlyCalculate()
         {
+            if (properties.IsYearlySpecific && properties.YearlySpecificMonth >= 1 && properties.YearlySpecificMonth <= 12
+                && properties.YearlySpecificMonthDay > 0)
+            {
+                CalculateYralyBySpecificMonth();
+            }
+            else
+            {
+                CalculateYearlyByWeek();
+            }
+        }
+
+        void CalculateYralyBySpecificMonth()
+        {
+            int daysInMonth = DateTime.DaysInMonth(nextDate.Year, properties.YearlySpecificMonth);
+            int monthDay = properties.YearlySpecificMonthDay <= daysInMonth ? properties.YearlySpecificMonthDay : daysInMonth;
+            nextDate = new DateTime(nextDate.Year, properties.YearlySpecificMonth, monthDay, nextDate.Hour, nextDate.Minute, nextDate.Second);
+            if (nextDate.CompareTo(_startDate) < 0)
+            {
+                nextDate = nextDate.AddYears(1);
+            }
+            else
+            {
+                recurrenceDates.Add(nextDate);
+                count++;
+                nextDate = nextDate.AddYears(properties.YearlyEveryNYears);
+            }
+        }
+
+        void CalculateYearlyByWeek()
+        {
+            
+            DateTime monthStart = new DateTime(nextDate.Year, properties.YearlySpecificMonth, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
+            var monthStartWeekday = (int)(monthStart.DayOfWeek);
+            DateTime weekStartDate = monthStart.AddDays(-monthStartWeekday);
+
+            int nthWeek;
+            if (monthStartWeekday <= properties.MonthlyWeekDay) nthWeek = properties.YearlyNthWeek - 1;
+            else nthWeek = properties.YearlyNthWeek;
+
+            nextDate = weekStartDate.AddDays((nthWeek) * 7);
+            nextDate = nextDate.AddDays(properties.YearlyWeekDay);
+
+            if (monthStart.Month == nextDate.Month)
+            {
+                if (nextDate.CompareTo(_startDate) < 0)
+                {
+                    nextDate = nextDate.AddYears(1);
+                }
+                else
+                {
+                    recurrenceDates.Add(nextDate);
+                    count++;
+                    nextDate = nextDate.AddYears(properties.YearlyEveryNYears);
+                }
+            }
+            else
+            {
+                nextDate = new DateTime(monthStart.Year, monthStart.Month, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
+                nextDate = nextDate.AddYears(1);
+            }
+
         }
     }
 }

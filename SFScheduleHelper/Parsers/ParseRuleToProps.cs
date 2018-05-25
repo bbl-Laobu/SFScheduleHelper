@@ -355,7 +355,11 @@ namespace Kareke.SFScheduleHelper
                         }
                         break;
                     case RecurrenceType.Monthly:
-                        SetMonthlyWeekDayRule(byDay[0]);
+                        recurrenceProperties.MonthlyWeekDay = GetWeekDayValue(byDay[0]);
+                        break;
+
+                    case RecurrenceType.Yearly:
+                        recurrenceProperties.YearlyWeekDay = GetWeekDayValue(byDay[0]);
                         break;
                 }
             }
@@ -440,7 +444,7 @@ namespace Kareke.SFScheduleHelper
             }
         }
 
-        void SetMonthlyWeekDayRule(string weekDay)
+        void SetMonthlyWeekDayRussle(string weekDay)
         {
             weekDay = string.IsNullOrEmpty(weekDay) ? string.Empty : weekDay.ToUpper().Trim();
             switch (weekDay)
@@ -453,6 +457,22 @@ namespace Kareke.SFScheduleHelper
                 case "FR": recurrenceProperties.MonthlyWeekDay = 5; break;
                 case "SA": recurrenceProperties.MonthlyWeekDay = 6; break;
                 default: break;
+            }
+        }
+
+        int GetWeekDayValue(string weekDay)
+        {
+            weekDay = string.IsNullOrEmpty(weekDay) ? string.Empty : weekDay.ToUpper().Trim();
+            switch (weekDay)
+            {
+                case "SU": return 0; 
+                case "MO": return 1; 
+                case "TU": return 2; 
+                case "WE": return 3; 
+                case "TH": return 4; 
+                case "FR": return 5; 
+                case "SA": return 6;
+                default: return 0;
             }
         }
     }
