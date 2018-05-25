@@ -24,7 +24,7 @@ namespace TestUnit.RecurrenceConverterTests
 
             Assert.AreEqual(true, converter.HasError);
             Assert.AreEqual("Rule is empty", converter.ErrorMessage);
-			Assert.AreEqual(startDate, props.RangeStartDate);
+			Assert.AreEqual(null, props);
 		}
 
 		// Test Methods Just Type
@@ -302,7 +302,7 @@ namespace TestUnit.RecurrenceConverterTests
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
 			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
 			Assert.AreEqual(2, props.MonthlyNthWeek, "MonthlyNthWeek");
-			Assert.AreEqual(6, props.MonthlyWeekDay, "MonthlyWeekDay");
+			Assert.AreEqual(5, props.MonthlyWeekDay, "MonthlyWeekDay");
 			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
 		}
 
@@ -316,7 +316,7 @@ namespace TestUnit.RecurrenceConverterTests
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
 			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
 			Assert.AreEqual(4, props.MonthlyNthWeek, "MonthlyNthWeek");
-			Assert.AreEqual(4, props.MonthlyWeekDay, "MonthlyWeekDay");
+			Assert.AreEqual(3, props.MonthlyWeekDay, "MonthlyWeekDay");
 			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
 			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
 		}
@@ -331,7 +331,7 @@ namespace TestUnit.RecurrenceConverterTests
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
 			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
 			Assert.AreEqual(4, props.MonthlyNthWeek, "MonthlyNthWeek");
-			Assert.AreEqual(6, props.MonthlyWeekDay, "MonthlyWeekDay");
+			Assert.AreEqual(5, props.MonthlyWeekDay, "MonthlyWeekDay");
 			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
             Assert.AreEqual(new DateTime(2018, 06, 11, 23, 59, 59), props.RangeEndDate, "RangeEndDate");
 		}
@@ -394,7 +394,7 @@ namespace TestUnit.RecurrenceConverterTests
 
             Assert.AreEqual(true, converter.HasError);
             StringAssert.Contains("INTERVAL has non valid value ", converter.ErrorMessage);
-            Assert.AreEqual(startDate, props.RangeStartDate);
+            Assert.AreEqual(null, props);
         }
 	}
 }

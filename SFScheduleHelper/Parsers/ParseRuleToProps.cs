@@ -44,8 +44,8 @@ namespace Kareke.SFScheduleHelper
             {
                 if (CreateRecurrenceProperties()) return recurrenceProperties;
             }
-
-            return new RecurrenceProperties { RangeStartDate = _startDate };
+            return null;
+            //return new RecurrenceProperties { RangeStartDate = _startDate };
         }
 
         // Parse Rule Methods
@@ -359,16 +359,6 @@ namespace Kareke.SFScheduleHelper
                         break;
                 }
             }
-            else
-            {
-                //switch (freq)
-                //{
-                //    case RecurrenceType.Weekly:
-                //		int weekday = (int)recurrenceProperties.RangeStartDate.DayOfWeek;
-                //		SetWeeklyWeekDayRule(weekday);
-                //        break;
-                //}
-            }
 
             // BYMONTHDAY set
             if (hasByMonthDay)
@@ -386,7 +376,7 @@ namespace Kareke.SFScheduleHelper
                 }
             }
 
-            // BYMONTHDAY set
+            // BYMONTH set
             if (hasByMonth)
             {
                 switch (freq)
@@ -455,13 +445,13 @@ namespace Kareke.SFScheduleHelper
             weekDay = string.IsNullOrEmpty(weekDay) ? string.Empty : weekDay.ToUpper().Trim();
             switch (weekDay)
             {
-                case "SU": recurrenceProperties.MonthlyWeekDay = 1; break;
-                case "MO": recurrenceProperties.MonthlyWeekDay = 2; break;
-                case "TU": recurrenceProperties.MonthlyWeekDay = 3; break;
-                case "WE": recurrenceProperties.MonthlyWeekDay = 4; break;
-                case "TH": recurrenceProperties.MonthlyWeekDay = 5; break;
-                case "FR": recurrenceProperties.MonthlyWeekDay = 6; break;
-                case "SA": recurrenceProperties.MonthlyWeekDay = 7; break;
+                case "SU": recurrenceProperties.MonthlyWeekDay = 0; break;
+                case "MO": recurrenceProperties.MonthlyWeekDay = 1; break;
+                case "TU": recurrenceProperties.MonthlyWeekDay = 2; break;
+                case "WE": recurrenceProperties.MonthlyWeekDay = 3; break;
+                case "TH": recurrenceProperties.MonthlyWeekDay = 4; break;
+                case "FR": recurrenceProperties.MonthlyWeekDay = 5; break;
+                case "SA": recurrenceProperties.MonthlyWeekDay = 6; break;
                 default: break;
             }
         }

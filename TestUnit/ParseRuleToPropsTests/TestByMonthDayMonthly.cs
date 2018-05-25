@@ -2,7 +2,7 @@
 using Kareke.SFScheduleHelper;
 using Syncfusion.SfSchedule.XForms;
 using System;
-namespace TestUnit.parser.uleToPropsTests
+namespace TestUnit.ParseRuleToPropsTests
 {
     [TestFixture()]
     public class TestByMonthDayMonthly

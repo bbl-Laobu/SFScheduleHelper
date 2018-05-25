@@ -26,7 +26,7 @@ namespace TestUnit.ParsePropsToRuleTests
          
 			string ruleResult = converter.Convert(props);
 
-			Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;BYSETPOS=1;", ruleResult);
+            Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;BYDAY=SU;BYSETPOS=1;", ruleResult);
         }   
 
 		[Test()]
@@ -38,7 +38,7 @@ namespace TestUnit.ParsePropsToRuleTests
          
 			string ruleResult = converter.Convert(props);
 
-            Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;BYSETPOS=26;", ruleResult);
+            Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;BYDAY=SU;BYSETPOS=26;", ruleResult);
         }   
 
 		[Test()]
@@ -50,7 +50,7 @@ namespace TestUnit.ParsePropsToRuleTests
          
 			string ruleResult = converter.Convert(props);
 
-            Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;BYSETPOS=52;", ruleResult);
+            Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;BYDAY=SU;BYSETPOS=52;", ruleResult);
         }  
     }
 }

@@ -106,13 +106,16 @@ namespace Kareke.SFScheduleHelper
 					break;
 
 				case RecurrenceType.Monthly:
-					if (_recurrenceProperties.MonthlyWeekDay == 1) weekdays += "SU,";
-					if (_recurrenceProperties.MonthlyWeekDay == 2) weekdays += "MO,";
-					if (_recurrenceProperties.MonthlyWeekDay == 3) weekdays += "TU,";
-					if (_recurrenceProperties.MonthlyWeekDay == 4) weekdays += "WE,";
-					if (_recurrenceProperties.MonthlyWeekDay == 5) weekdays += "TH,";
-					if (_recurrenceProperties.MonthlyWeekDay == 6) weekdays += "FR,";
-					if (_recurrenceProperties.MonthlyWeekDay == 7) weekdays += "SA,";
+                    if (!_recurrenceProperties.IsMonthlySpecific && _recurrenceProperties.MonthlyNthWeek > 0)
+                    {
+                        if (_recurrenceProperties.MonthlyWeekDay == 0) weekdays += "SU,";
+                        if (_recurrenceProperties.MonthlyWeekDay == 1) weekdays += "MO,";
+                        if (_recurrenceProperties.MonthlyWeekDay == 2) weekdays += "TU,";
+                        if (_recurrenceProperties.MonthlyWeekDay == 3) weekdays += "WE,";
+                        if (_recurrenceProperties.MonthlyWeekDay == 4) weekdays += "TH,";
+                        if (_recurrenceProperties.MonthlyWeekDay == 5) weekdays += "FR,";
+                        if (_recurrenceProperties.MonthlyWeekDay == 6) weekdays += "SA,";
+                    }
                     break;
 			}
 			weekdays = (weekdays != string.Empty) ? weekdays.Substring(0, weekdays.Length - 1) : weekdays;
