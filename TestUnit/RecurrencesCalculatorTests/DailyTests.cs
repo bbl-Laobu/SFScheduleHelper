@@ -20,7 +20,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=DAILY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
-            var recurrenceDates = calculator.GetRecurrences(rule, startDate);
+            var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
 
             int pos = 0;
             foreach (var recDate in recurrenceDates)
@@ -36,7 +36,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=DAILY;COUNT=10;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
-            var recurrenceDates = calculator.GetRecurrences(rule, startDate);
+            var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
 
             int count = 0;
             DateTime nextDate = startDate;
@@ -55,7 +55,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=DAILY;COUNT=10;UNTIL=10/01/2018";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
-            var recurrenceDates = calculator.GetRecurrences(rule, startDate);
+            var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
 
             int count = 0;
             DateTime nextDate = startDate;
@@ -75,7 +75,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=DAILY;UNTIL=09/01/2019";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
-            var recurrenceDates = calculator.GetRecurrences(rule, startDate);
+            var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
 
             int count = 0;
             DateTime nextDate = startDate;
@@ -95,7 +95,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=DAILY;UNTIL=09/01/2019";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
-            var recurrenceDates = calculator.GetRecurrences(rule, startDate, 210);
+            var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate, 210);
 
             int count = 0;
             DateTime nextDate = startDate;
@@ -115,7 +115,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=DAILY;UNTIL=11/05/2018";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
-            var recurrenceDates = calculator.GetRecurrences(rule, startDate);
+            var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
 
             int count = 0;
             DateTime nextDate = startDate;

@@ -74,6 +74,9 @@
     <Compile Include="RecurrencesCalculatorTests\WeeklyTests.cs" />
     <Compile Include="RecurrencesCalculatorTests\MonthlyTests.cs" />
     <Compile Include="RecurrencesCalculatorTests\YearlyTests.cs" />
+    <Compile Include="RecurrencesCalculatorTests\FinalEndDateTests.cs" />
+    <Compile Include="RecurrencesCalculatorTests\NextRecurrencesTests.cs" />
+    <Compile Include="RecurrencesCalculatorTests\CurrentRecurrencesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFScheduleHelper\SFScheduleHelper.csproj">

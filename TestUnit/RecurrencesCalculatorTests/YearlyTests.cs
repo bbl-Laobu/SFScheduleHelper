@@ -22,7 +22,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=YEARLY;BYMONTHDAY=1;BYMONTH=12;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
-            ObservableCollection<DateTime> recurrenceDates = calculator.GetRecurrences(rule, startDate) as ObservableCollection<DateTime>;
+            ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             Assert.AreEqual(new DateTime(2018, 12, 01, 10, 11, 12), recurrenceDates[0], "Pos: 0");
             Assert.AreEqual(1, recurrenceDates.Count, "Count");
@@ -34,7 +34,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=YEARLY;COUNT=5;BYMONTHDAY=15;BYMONTH=12;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
-            ObservableCollection<DateTime> recurrenceDates = calculator.GetRecurrences(rule, startDate) as ObservableCollection<DateTime>;
+            ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             Assert.AreEqual(new DateTime(2018, 12, 15, 10, 11, 12), recurrenceDates[0], "Pos: 0");
             Assert.AreEqual(new DateTime(2019, 12, 15, 10, 11, 12), recurrenceDates[1], "Pos: 1");
@@ -50,7 +50,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=YEARLY;COUNT=5;BYMONTHDAY=31;BYMONTH=2;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
-            ObservableCollection<DateTime> recurrenceDates = calculator.GetRecurrences(rule, startDate) as ObservableCollection<DateTime>;
+            ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             Assert.AreEqual(new DateTime(2018, 02, 28, 10, 11, 12), recurrenceDates[0], "Pos: 0");
             Assert.AreEqual(new DateTime(2019, 02, 28, 10, 11, 12), recurrenceDates[1], "Pos: 1");
@@ -67,7 +67,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=YEARLY;COUNT=5;BYMONTHDAY=15;BYMONTH=4;";
             DateTime startDate = new DateTime(2018, 05, 01, 10, 11, 12);
 
-            ObservableCollection<DateTime> recurrenceDates = calculator.GetRecurrences(rule, startDate) as ObservableCollection<DateTime>;
+            ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             Assert.AreEqual(new DateTime(2019, 04, 15, 10, 11, 12), recurrenceDates[0], "Pos: 0");
             Assert.AreEqual(new DateTime(2020, 04, 15, 10, 11, 12), recurrenceDates[1], "Pos: 1");
@@ -83,7 +83,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTHDAY=31;BYMONTH=2;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
-            ObservableCollection<DateTime> recurrenceDates = calculator.GetRecurrences(rule, startDate) as ObservableCollection<DateTime>;
+            ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             Assert.AreEqual(new DateTime(2018, 02, 28, 10, 11, 12), recurrenceDates[0], "Pos: 0");
             Assert.AreEqual(new DateTime(2020, 02, 29, 10, 11, 12), recurrenceDates[1], "Pos: 1");
@@ -99,7 +99,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=YEARLY;UNTIL=05/01/2021;BYMONTHDAY=31;BYMONTH=2;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
-            ObservableCollection<DateTime> recurrenceDates = calculator.GetRecurrences(rule, startDate) as ObservableCollection<DateTime>;
+            ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             Assert.AreEqual(new DateTime(2018, 02, 28, 10, 11, 12), recurrenceDates[0], "Pos: 0");
             Assert.AreEqual(new DateTime(2019, 02, 28, 10, 11, 12), recurrenceDates[1], "Pos: 1");
@@ -115,7 +115,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=YEARLY;UNTIL=05/01/2019;BYDAY=SA;BYSETPOS=3;BYMONTH=2;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
-            ObservableCollection<DateTime> recurrenceDates = calculator.GetRecurrences(rule, startDate) as ObservableCollection<DateTime>;
+            ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             // check weekday consistent
             int count = 0;
@@ -136,7 +136,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=YEARLY;UNTIL=05/01/2021;BYDAY=SU;BYSETPOS=5;BYMONTH=4;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
-            ObservableCollection<DateTime> recurrenceDates = calculator.GetRecurrences(rule, startDate) as ObservableCollection<DateTime>;
+            ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             // check weekday consistent
             int count = 0;
