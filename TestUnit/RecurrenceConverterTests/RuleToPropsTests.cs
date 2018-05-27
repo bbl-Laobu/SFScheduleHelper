@@ -45,7 +45,7 @@ namespace TestUnit.RecurrenceConverterTests
 		[Test()]
 		public void Weekly()
 		{
-			string rule = "FREQ=Weekly;";
+			string rule = "FREQ=Weekly;BYDAY=MO";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
@@ -56,18 +56,37 @@ namespace TestUnit.RecurrenceConverterTests
 		}
 
 		[Test()]
-		public void Monthly()
+		public void Monthly_BySetPos_ByMonthDay()
 		{
-			string rule = "FREQ=Monthly;";
+            string rule = "FREQ=Monthly;BYSETPOS=4; BYMONTHDAY=15; ";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
-			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-			//Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
-			//Assert.AreEqual(1, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+            Assert.AreEqual(true, converter.HasError);
+            Assert.AreEqual("BYSETPOS/BYDAY or BYMONTHDAY should be set for Monthly, not both.", converter.ErrorMessage);
 		}
+
+        [Test()]
+        public void Monthly_ByDAY_ByMonthDay()
+        {
+            string rule = "FREQ=Monthly;BYDAY=FR;BYSETPOS=4;BYMONTHDAY=15; ";
+            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+            RecurrenceProperties props = converter.Convert(rule, startDate);
+
+            Assert.AreEqual(true, converter.HasError);
+            Assert.AreEqual("BYSETPOS/BYDAY or BYMONTHDAY should be set for Monthly, not both.", converter.ErrorMessage);
+        }
+
+        [Test()]
+        public void Monthly_ByDAY_BySetPOS_ByMonthDay()
+        {
+            string rule = "FREQ=Monthly;BYDAY=FR;BYSETPOS=4;BYMONTHDAY=15; ";
+            DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
+            RecurrenceProperties props = converter.Convert(rule, startDate);
+
+            Assert.AreEqual(true, converter.HasError);
+            Assert.AreEqual("BYSETPOS/BYDAY or BYMONTHDAY should be set for Monthly, not both.", converter.ErrorMessage);
+        }
 
 		// Test Methods from SFSchedule Docs
 		// ----------------------------------
@@ -395,6 +414,19 @@ namespace TestUnit.RecurrenceConverterTests
             Assert.AreEqual(true, converter.HasError);
             StringAssert.Contains("INTERVAL has non valid value ", converter.ErrorMessage);
             Assert.AreEqual(null, props);
+        }
+
+
+        [Test()]
+        public void BuggyRuleIncomplete()
+        {
+            string rule = "FREQ=WEEKLY;INTERVAL=1;COUNT=10;";
+            DateTime startDate = new DateTime(2018, 05, 23, 11, 30, 00);
+
+            RecurrenceProperties props = converter.Convert(rule, startDate);
+
+            Assert.AreEqual(true, converter.HasError);
+            Assert.AreEqual("BYDAY should be set for Weekly", converter.ErrorMessage);
         }
 	}
 }

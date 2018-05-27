@@ -41,25 +41,25 @@ namespace TestUnit.RecurrenceConverterTests
 		[Test()]
 		public void Weekly()
 		{
-			string rule = "FREQ=Weekly;";
+            string rule = "FREQ=Weekly;BYDAY=SU;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
             string ruleResult = converter.Convert(props);
 
-            Assert.AreEqual("FREQ=WEEKLY;INTERVAL=1;", ruleResult);
+            Assert.AreEqual("FREQ=WEEKLY;INTERVAL=1;BYDAY=SU;", ruleResult);
 		}
 
 		[Test()]
 		public void Monthly()
 		{
-			string rule = "FREQ=Monthly;";
+            string rule = "FREQ=Monthly;BYDAY=WE; BYSETPOS=4;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
             string ruleResult = converter.Convert(props);
 
-            Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;", ruleResult);
+            Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;BYDAY=WE;BYSETPOS=4;", ruleResult);
 		}
 
 		// Test Methods from SFSchedule Docs

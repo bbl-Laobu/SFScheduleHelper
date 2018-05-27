@@ -77,6 +77,19 @@ namespace TestUnit.RecurrencesCalculatorTests
         }
 
         [Test()]
+        public void Weekly_IncompleteRule()
+        {
+            string rule = "FREQ=WEEKLY;INTERVAL=1;COUNT=10;";
+            DateTime startDate = new DateTime(2018, 05, 23, 11, 30, 00);
+            TimeSpan duration = TimeSpan.FromHours(1);
+
+            DateTime finalDate = calculator.FinalEndDate(rule, startDate, duration);
+
+            Assert.AreEqual(true, calculator.HasError);
+            Assert.AreEqual("BYDAY should be set for Weekly", calculator.ErrorMessage);
+        }
+
+        [Test()]
         public void Monthly_Until05012019_BYDAYMO_BYSETPOS1()
         {
             string rule = "FREQ=MONTHLY;UNTIL=05/01/2019;BYDAY=MO;BYSETPOS=1;";
@@ -112,6 +125,19 @@ namespace TestUnit.RecurrencesCalculatorTests
 
             finalDate = calculator.FinalEndDate(rule, new DateTime(2019, 04, 01, 10, 11, 12), duration);
             Assert.AreEqual(expectedFinalDate, finalDate, "Pos: 2");
+        }
+
+        [Test()]
+        public void Monthly_IncompleteRule()
+        {
+            string rule = "FREQ=MONTHLY;INTERVAL=1;COUNT=10;";
+            DateTime startDate = new DateTime(2018, 05, 23, 11, 30, 00);
+            TimeSpan duration = TimeSpan.FromHours(1);
+
+            DateTime finalDate = calculator.FinalEndDate(rule, startDate, duration);
+
+            Assert.AreEqual(true, calculator.HasError);
+            Assert.AreEqual("BYDAY or BYMONTHDAY should be set for Monthly", calculator.ErrorMessage);
         }
 
         [Test()]

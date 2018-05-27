@@ -32,13 +32,13 @@ namespace TestUnit.ParsePropsToRuleTests
 		[Test()]
         public void ValidCountWeekly()
         {
-			string rule = "FREQ=Weekly;INTERVAL=2;COUNT=4;";
+            string rule = "FREQ=Weekly;INTERVAL=2;COUNT=4;BYDAY=FR;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = parser.Convert(rule, startDate);
          
 			string ruleResult = converter.Convert(props);
 
-            Assert.AreEqual("FREQ=WEEKLY;INTERVAL=2;COUNT=4;", ruleResult); 
+            Assert.AreEqual("FREQ=WEEKLY;INTERVAL=2;COUNT=4;BYDAY=FR;", ruleResult); 
         }   
     }
 }

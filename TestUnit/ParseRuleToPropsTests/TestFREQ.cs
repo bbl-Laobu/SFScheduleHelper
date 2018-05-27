@@ -50,7 +50,7 @@ namespace TestUnit.ParseRuleToPropsTests
         [Test()]
         public void ValidWeekly()
         {
-            string rule = "FREQ=WEEKLY;";
+            string rule = "FREQ=WEEKLY;BYDAY=TU;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
 
@@ -60,7 +60,7 @@ namespace TestUnit.ParseRuleToPropsTests
         [Test()]
         public void ValidMonthly()
         {
-            string rule = "FREQ=monthly;";
+            string rule = "FREQ=monthly;BYMONTHDAY=15;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
 
@@ -70,7 +70,7 @@ namespace TestUnit.ParseRuleToPropsTests
         [Test()]
         public void ValidYearly()
         {
-            string rule = "freq=yearly;";
+            string rule = "freq=yearly;BYMONTH=9;BYMONTHDAY=01";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
 

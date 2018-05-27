@@ -52,5 +52,6 @@ namespace TestUnit.ParsePropsToRuleTests
 
             Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=31;", ruleResult);
         }  
+
     }
 }

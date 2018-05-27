@@ -66,13 +66,8 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(false, props.IsWeeklySunday);
-            Assert.AreEqual(false, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-            Assert.AreEqual(false, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-            Assert.AreEqual(false, props.IsWeeklyFriday);
-            Assert.AreEqual(false, props.IsWeeklySaturday);
+            Assert.AreEqual(true, parser.HasError);
+            Assert.AreEqual("BYDAY should be set for Weekly", parser.ErrorMessage);
         }
 
 		[Test()]

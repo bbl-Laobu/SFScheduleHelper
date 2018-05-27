@@ -117,9 +117,39 @@ namespace Kareke.SFScheduleHelper
                         if (_recurrenceProperties.MonthlyWeekDay == 6) weekdays += "SA,";
                     }
                     break;
+                case RecurrenceType.Yearly:
+                    if (_recurrenceProperties.YearlyNthWeek > 0)
+                    {
+                        if (_recurrenceProperties.YearlyWeekDay == 0) weekdays += "SU,";
+                        if (_recurrenceProperties.YearlyWeekDay == 1) weekdays += "MO,";
+                        if (_recurrenceProperties.YearlyWeekDay == 2) weekdays += "TU,";
+                        if (_recurrenceProperties.YearlyWeekDay == 3) weekdays += "WE,";
+                        if (_recurrenceProperties.YearlyWeekDay == 4) weekdays += "TH,";
+                        if (_recurrenceProperties.YearlyWeekDay == 5) weekdays += "FR,";
+                        if (_recurrenceProperties.YearlyWeekDay == 6) weekdays += "SA,";
+                    }
+                    break;
 			}
 			weekdays = (weekdays != string.Empty) ? weekdays.Substring(0, weekdays.Length - 1) : weekdays;
             byDay = (weekdays != string.Empty) ? "BYDAY=" + weekdays + ";" : string.Empty;
+
+            // BYSETPOS
+            bySetPos = string.Empty;
+            switch (_recurrenceProperties.RecurrenceType)
+            {
+                case RecurrenceType.Weekly:
+                    if (_recurrenceProperties.NthWeek > 0)
+                        bySetPos = "BYSETPOS=" + _recurrenceProperties.NthWeek.ToString() + ";";
+                    break;
+                case RecurrenceType.Monthly:
+                    if (_recurrenceProperties.MonthlyNthWeek > 0)
+                        bySetPos = "BYSETPOS=" + _recurrenceProperties.MonthlyNthWeek.ToString() + ";";
+                    break;
+                case RecurrenceType.Yearly:
+                    if (_recurrenceProperties.YearlyNthWeek > 0)
+                        bySetPos = "BYSETPOS=" + _recurrenceProperties.YearlyNthWeek.ToString() + ";";
+                    break;
+            }
 
 			// BYMONTHDAY
 			byMonthDay = string.Empty;
@@ -145,23 +175,7 @@ namespace Kareke.SFScheduleHelper
                     break;
             }
 
-			// BYSETPOS
-			bySetPos = string.Empty;
-            switch (_recurrenceProperties.RecurrenceType)
-            {
-				case RecurrenceType.Weekly:
-					if (_recurrenceProperties.NthWeek > 0)
-						bySetPos = "BYSETPOS=" + _recurrenceProperties.NthWeek.ToString() + ";";
-                    break;
-                case RecurrenceType.Monthly:
-					if (_recurrenceProperties.MonthlyNthWeek > 0)
-						bySetPos = "BYSETPOS=" + _recurrenceProperties.MonthlyNthWeek.ToString() + ";";
-                    break;
-                case RecurrenceType.Yearly:
-					if (_recurrenceProperties.YearlyNthWeek > 0)
-						bySetPos = "BYSETPOS=" + _recurrenceProperties.YearlyNthWeek.ToString() + ";";
-                    break;
-            }
+
 
 			rule = freq + interval + count + until + byDay + byMonthDay + byMonth + bySetPos;
 			return true;

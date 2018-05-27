@@ -84,7 +84,7 @@ namespace TestUnit.ParseRuleToPropsTests
 		[Test()]
 		public void Valid1()
         {
-			string rule = "FREQ=YEARLY;BYMONTH=1;";
+            string rule = "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=15;";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
          
@@ -95,7 +95,7 @@ namespace TestUnit.ParseRuleToPropsTests
 		[Test()]
         public void Valid6()
         {
-			string rule = "FREQ=YEARLY;BYMONTH=6;";
+            string rule = "FREQ=YEARLY;BYMONTH=6;BYDAY=SU; BYSETPOS=2;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
 
@@ -106,7 +106,7 @@ namespace TestUnit.ParseRuleToPropsTests
 		[Test()]
         public void Valid12()
         {
-			string rule = "FREQ=YEARLY;BYMONTH=12;";
+            string rule = "FREQ=YEARLY;BYMONTH=12;BYDAY=FR; BYSETPOS=2;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
          
@@ -121,8 +121,8 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
          
-			Assert.AreEqual(false, props.IsMonthlySpecific);
-            Assert.AreEqual(0, props.MonthlySpecificMonthDay);
+            Assert.AreEqual(true, parser.HasError);
+            Assert.AreEqual("BYMONTH should be set for Yearly", parser.ErrorMessage);
         } 
         
     }

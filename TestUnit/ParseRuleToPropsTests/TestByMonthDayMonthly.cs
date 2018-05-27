@@ -121,8 +121,8 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = parser.Convert(rule, startDate);
          
-            Assert.AreEqual(false, props.IsMonthlySpecific);
-            Assert.AreEqual(0, props.MonthlySpecificMonthDay);
+            Assert.AreEqual(true, parser.HasError);
+            Assert.AreEqual("BYDAY or BYMONTHDAY should be set for Monthly", parser.ErrorMessage);
         } 
         
     }

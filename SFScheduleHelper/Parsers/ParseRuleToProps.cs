@@ -125,6 +125,10 @@ namespace Kareke.SFScheduleHelper
                         return false;
                 }
             }
+
+            // Check Complete Rule Validity
+            if (!CompleteRuleValidation()) return false;
+
             return true;
         }
 
@@ -239,6 +243,45 @@ namespace Kareke.SFScheduleHelper
         {
             bySetPos = StrintToInt(value);
             if (bySetPos < 1 || bySetPos > 52) { HasError = true; ErrorMessage = "BYSETPOS has non valid value " + value; return false; }
+            return true;
+        }
+
+        // Complete Rule Validation
+        bool CompleteRuleValidation()
+        {
+            switch (freq)
+            {
+                case RecurrenceType.Weekly:
+                    if (!hasByDay)
+                    {
+                        HasError = true; ErrorMessage = "BYDAY should be set for Weekly"; return false;
+                    }
+                    break;
+                case RecurrenceType.Monthly:
+                    if (!(hasByDay && hasBySetPos) & !hasByMonthDay)
+                    {
+                        HasError = true; ErrorMessage = "BYDAY or BYMONTHDAY should be set for Monthly"; return false;
+                    }
+                    if ((hasBySetPos || hasBySetPos) && hasByMonthDay)
+                    {
+                        HasError = true; ErrorMessage = "BYSETPOS/BYDAY or BYMONTHDAY should be set for Monthly, not both."; return false;
+                    }
+                    break;
+                case RecurrenceType.Yearly:
+                    if (!hasByMonth)
+                    {
+                        HasError = true; ErrorMessage = "BYMONTH should be set for Yearly"; return false;
+                    }
+                    if (!(hasByDay && hasBySetPos) & !hasByMonthDay)
+                    {
+                        HasError = true; ErrorMessage = "BYSETPOS/BYDAY or BYMONTHDAY should be set for Yearly"; return false;
+                    }
+                    if ((hasBySetPos || hasBySetPos) && hasByMonthDay)
+                    {
+                        HasError = true; ErrorMessage = "BYSETPOS/BYDAY or BYMONTHDAY should be set for Yearly, not both."; return false;
+                    }
+                    break;
+            }
             return true;
         }
 
@@ -465,12 +508,12 @@ namespace Kareke.SFScheduleHelper
             weekDay = string.IsNullOrEmpty(weekDay) ? string.Empty : weekDay.ToUpper().Trim();
             switch (weekDay)
             {
-                case "SU": return 0; 
-                case "MO": return 1; 
-                case "TU": return 2; 
-                case "WE": return 3; 
-                case "TH": return 4; 
-                case "FR": return 5; 
+                case "SU": return 0;
+                case "MO": return 1;
+                case "TU": return 2;
+                case "WE": return 3;
+                case "TH": return 4;
+                case "FR": return 5;
                 case "SA": return 6;
                 default: return 0;
             }
