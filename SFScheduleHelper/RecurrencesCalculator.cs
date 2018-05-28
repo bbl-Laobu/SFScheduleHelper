@@ -50,7 +50,13 @@ namespace Kareke.SFScheduleHelper
             return recurrenceDates;
         }
 
-
+        /// <summary>
+        /// Calculate Final recurrence End Date
+        /// </summary>
+        /// <returns>The end date.</returns>
+        /// <param name="rule">Rule.</param>
+        /// <param name="startDate">Start date.</param>
+        /// <param name="duration">Duration of the appointment.</param>
         public DateTime FinalEndDate(string rule, DateTime startDate, TimeSpan duration)
         {
             // Init
@@ -77,8 +83,15 @@ namespace Kareke.SFScheduleHelper
             }
         }
 
-
-        public IEnumerable<DateTime> NextRecurrences(string rule, DateTime startDate, DateTime currentDate, int noDatesReturned = 10)
+        /// <summary>
+        /// Calculates the Next recurrence(s) .
+        /// </summary>
+        /// <returns>The recurrences.</returns>
+        /// <param name="rule">Rule.</param>
+        /// <param name="startDate">Start date.</param>
+        /// <param name="currentDate">Current date.</param>
+        /// <param name="maxDatesReturned">Maximum number of dates returned.</param>
+        public IEnumerable<DateTime> NextRecurrences(string rule, DateTime startDate, DateTime currentDate, int maxDatesReturned = 10)
         {
             // Init
             _rule = rule;
@@ -98,7 +111,7 @@ namespace Kareke.SFScheduleHelper
 
             while (((properties.IsRangeEndDate && nextDate <= properties.RangeEndDate)
                                 || (properties.IsRangeNoEndDate && count <= properties.RangeRecurrenceCount))
-                   && count <= maxReturns && datesFound < noDatesReturned)
+                   && count <= maxReturns && datesFound < maxDatesReturned)
             {
                 CalculateForRecurrenceType();
 
@@ -115,7 +128,13 @@ namespace Kareke.SFScheduleHelper
             return nextRecurrenceDates;
         }
 
-
+        /// <summary>
+        /// Currents or Last recurrence.
+        /// </summary>
+        /// <returns>The recurrence.</returns>
+        /// <param name="rule">Rule.</param>
+        /// <param name="startDate">Start date.</param>
+        /// <param name="currentDate">Current date.</param>
         public DateTime CurrentRecurrence(string rule, DateTime startDate, DateTime currentDate)
         {
             // Init
