@@ -65,7 +65,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Daily_UNTIL09012019_FinalDate()
         {
-            string rule = "FREQ=DAILY;UNTIL=09/01/2019";
+            string rule = "FREQ=DAILY;UNTIL=20190901";
             DateTime startDate = new DateTime(2017, 09, 01, 10, 0, 0);
             DateTime LastRecurrence = calculator.FinalEndDate(rule, startDate, TimeSpan.FromHours(2));
 
@@ -77,7 +77,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Daily_UNTIL09012019_Middle()
         {
-            string rule = "FREQ=DAILY;UNTIL=09/01/2019";
+            string rule = "FREQ=DAILY;UNTIL=20190901";
             DateTime startDate = new DateTime(2017, 09, 01, 10, 0, 0);
 
             DateTime currentRecurrence = calculator.CurrentRecurrence(rule, startDate, new DateTime(2018, 04, 01, 16, 11, 11));
@@ -102,7 +102,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Monthly_Until05012019_BYDAYMO_BYSETPOS1()
         {
-            string rule = "FREQ=MONTHLY;UNTIL=05/01/2019;BYDAY=MO;BYSETPOS=1;";
+            string rule = "FREQ=MONTHLY;UNTIL=20190501;BYDAY=MO;BYSETPOS=1;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             DateTime currentRecurrence = calculator.CurrentRecurrence(rule, startDate, new DateTime(2019, 01, 08, 10, 11, 12));
@@ -113,7 +113,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Yearly_Until050121_BYMONTHDAY31_BYMONTH2()
         {
-            string rule = "FREQ=YEARLY;UNTIL=05/01/2021;BYMONTHDAY=31;BYMONTH=2;";
+            string rule = "FREQ=YEARLY;UNTIL=20210501;BYMONTHDAY=31;BYMONTH=2;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
             DateTime currentRecurrence = calculator.CurrentRecurrence(rule, startDate, new DateTime(2021, 01, 28, 10, 11, 12));

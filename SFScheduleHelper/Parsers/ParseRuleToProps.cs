@@ -299,6 +299,21 @@ namespace Kareke.SFScheduleHelper
         DateTime StringToDate(string dateString)
         {
             DateTime untilDate;
+            if (string.IsNullOrEmpty(dateString) || dateString.Length != 8 || !IsDigitsOnly(dateString)) return DateTime.MinValue;
+
+            try
+            {
+                int year = Int32.Parse(dateString.Substring(0,4));
+                int month = Int32.Parse(dateString.Substring(4, 2));
+                int day = Int32.Parse(dateString.Substring(6, 2));
+                untilDate = new DateTime(year, month, day);
+            }
+            catch (Exception)
+            {
+                untilDate = DateTime.MinValue;
+            }
+
+            /*
             char[] dateSeperator = { '/' };
             string[] date = dateString.Split(dateSeperator);
             if (date != null && date.Length == 3)
@@ -317,8 +332,20 @@ namespace Kareke.SFScheduleHelper
 
             }
             else untilDate = DateTime.MinValue;
+            */
 
             return untilDate;
+        }
+
+        bool IsDigitsOnly(string str)
+        {
+            foreach (char c in str)
+            {
+                if (c < '0' || c > '9')
+                    return false;
+            }
+
+            return true;
         }
 
         string GetWeekDay(string weekDay)

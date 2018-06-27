@@ -52,7 +52,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Count10_Until10012018()
         {
-            string rule = "FREQ=DAILY;COUNT=10;UNTIL=10/01/2018";
+            string rule = "FREQ=DAILY;COUNT=10;UNTIL=20181001";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
@@ -72,7 +72,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until09012019()
         {
-            string rule = "FREQ=DAILY;UNTIL=09/01/2019";
+            string rule = "FREQ=DAILY;UNTIL=20190901";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
@@ -92,7 +92,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until09012019_max201()
         {
-            string rule = "FREQ=DAILY;UNTIL=09/01/2019";
+            string rule = "FREQ=DAILY;UNTIL=20190901";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate, 210);
@@ -112,7 +112,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until11052018()
         {
-            string rule = "FREQ=DAILY;UNTIL=11/05/2018";
+            string rule = "FREQ=DAILY;UNTIL=20181105";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);

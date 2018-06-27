@@ -69,7 +69,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Daily_UNTIL09012019_WithfinalDate_Found0()
         {
-            string rule = "FREQ=DAILY;UNTIL=09/01/2019";
+            string rule = "FREQ=DAILY;UNTIL=20190901";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             TimeSpan duration = TimeSpan.FromHours(2);
 
@@ -95,7 +95,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Monthly_Until05012019_BYDAYMO_BYSETPOS1_Found4()
         {
-            string rule = "FREQ=MONTHLY;UNTIL=05/01/2019;BYDAY=MO;BYSETPOS=1;";
+            string rule = "FREQ=MONTHLY;UNTIL=20190501;BYDAY=MO;BYSETPOS=1;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -131,7 +131,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Yearly_Until050121_BYMONTHDAY31_BYMONTH2()
         {
-            string rule = "FREQ=YEARLY;UNTIL=05/01/2021;BYMONTHDAY=31;BYMONTH=2;";
+            string rule = "FREQ=YEARLY;UNTIL=20210501;BYMONTHDAY=31;BYMONTH=2;";
             DateTime startDate = new DateTime(2018, 01, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;

@@ -86,9 +86,12 @@ namespace Kareke.SFScheduleHelper
 			// UNTIL
 			until = string.Empty;
             if (_recurrenceProperties.RecurrenceRange == RecurrenceRange.EndDate && _recurrenceProperties.EndDate > DateTime.MinValue) 
-                until = "UNTIL=" + _recurrenceProperties.EndDate.Month.ToString() 
-                                                        + "/" + _recurrenceProperties.EndDate.Day.ToString()
-                                                        + "/" + _recurrenceProperties.EndDate.Year.ToString() + ";" ;
+                //until = "UNTIL=" + _recurrenceProperties.EndDate.Month.ToString() 
+                //                                        + "/" + _recurrenceProperties.EndDate.Day.ToString()
+                //                                        + "/" + _recurrenceProperties.EndDate.Year.ToString() + ";" ;
+                until = "UNTIL=" + _recurrenceProperties.EndDate.Year.ToString() 
+                                                        +  _recurrenceProperties.EndDate.Month.ToString("D2")
+                                                        +  _recurrenceProperties.EndDate.Day.ToString("D2") + ";" ;
 
 			// BYDAY
 			byDay = string.Empty;

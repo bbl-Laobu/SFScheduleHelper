@@ -53,7 +53,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Count10_Until10012018_ByDaySA()
         {
-            string rule = "FREQ=WEEKLY;COUNT=10;UNTIL=10/01/2018;BYDAY=SA;";
+            string rule = "FREQ=WEEKLY;COUNT=10;UNTIL=20181001;BYDAY=SA;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
@@ -73,7 +73,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until09012019_ByDaySA()
         {
-            string rule = "FREQ=WEEKLY;UNTIL=09/01/2019;BYDAY=SA;";
+            string rule = "FREQ=WEEKLY;UNTIL=20190901;BYDAY=SA;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);

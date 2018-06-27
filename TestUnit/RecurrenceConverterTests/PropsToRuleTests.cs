@@ -94,13 +94,13 @@ namespace TestUnit.RecurrenceConverterTests
 		[Test()]
 		public void DailyExample3()
 		{
-			string rule = "FREQ=DAILY; INTERVAL=1; UNTIL=06/20/2017";
+			string rule = "FREQ=DAILY; INTERVAL=1; UNTIL=20170601";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
             string ruleResult = converter.Convert(props);
 
-			Assert.AreEqual("FREQ=DAILY;INTERVAL=1;UNTIL=6/20/2017;", ruleResult);
+			Assert.AreEqual("FREQ=DAILY;INTERVAL=1;UNTIL=20170601;", ruleResult);
 		}
 
 		[Test()]
@@ -144,13 +144,13 @@ namespace TestUnit.RecurrenceConverterTests
 		[Test()]
 		public void WeeklyExample3()
 		{
-			string rule = "FREQ=WEEKLY; INTERVAL=1; BYDAY=MO; UNTIL=07/20/2017";
+			string rule = "FREQ=WEEKLY; INTERVAL=1; BYDAY=MO; UNTIL=20170720";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
             string ruleResult = converter.Convert(props);
 
-			Assert.AreEqual("FREQ=WEEKLY;INTERVAL=1;UNTIL=7/20/2017;BYDAY=MO;", ruleResult);
+			Assert.AreEqual("FREQ=WEEKLY;INTERVAL=1;UNTIL=20170720;BYDAY=MO;", ruleResult);
 		}
 
 		[Test()]
@@ -194,13 +194,13 @@ namespace TestUnit.RecurrenceConverterTests
 		[Test()]
 		public void EveryDayExample3()
 		{
-			string rule = "FREQ=WEEKLY; BYDAY=MO, TU, WE, TH, FR; UNTIL=07/15/2017";
+			string rule = "FREQ=WEEKLY; BYDAY=MO, TU, WE, TH, FR; UNTIL=20170715";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
             string ruleResult = converter.Convert(props);
 
-			Assert.AreEqual("FREQ=WEEKLY;INTERVAL=1;UNTIL=7/15/2017;BYDAY=MO,TU,WE,TH,FR;", ruleResult);
+			Assert.AreEqual("FREQ=WEEKLY;INTERVAL=1;UNTIL=20170715;BYDAY=MO,TU,WE,TH,FR;", ruleResult);
 		}
 
 		// MONTHLY Tests
@@ -232,13 +232,13 @@ namespace TestUnit.RecurrenceConverterTests
 		[Test()]
 		public void MonthlyExample3()
 		{
-			string rule = "FREQ=MONTHLY; BYMONTHDAY=16; INTERVAL=1; UNTIL=06/11/2018";
+			string rule = "FREQ=MONTHLY; BYMONTHDAY=16; INTERVAL=1; UNTIL=20180611";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
             string ruleResult = converter.Convert(props);
 
-			Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;UNTIL=6/11/2018;BYMONTHDAY=16;", ruleResult); 
+			Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;UNTIL=20180611;BYMONTHDAY=16;", ruleResult); 
 		}
 
 		[Test()]
@@ -268,13 +268,13 @@ namespace TestUnit.RecurrenceConverterTests
 		[Test()]
 		public void MonthlyExample6()
 		{
-			string rule = "FREQ=MONTHLY; BYDAY=FR; BYSETPOS=4; INTERVAL=1; UNTIL=06/11/2018";
+			string rule = "FREQ=MONTHLY; BYDAY=FR; BYSETPOS=4; INTERVAL=1; UNTIL=20180611";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
             string ruleResult = converter.Convert(props);
 
-			Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;UNTIL=6/11/2018;BYDAY=FR;BYSETPOS=4;", ruleResult);
+			Assert.AreEqual("FREQ=MONTHLY;INTERVAL=1;UNTIL=20180611;BYDAY=FR;BYSETPOS=4;", ruleResult);
 		}
 
 		// YEARLY Tests
@@ -306,13 +306,13 @@ namespace TestUnit.RecurrenceConverterTests
 		[Test()]
 		public void YearlyExample3()
 		{
-			string rule = "FREQ=YEARLY; BYMONTHDAY=12; BYMONTH=12; INTERVAL=1; UNTIL=06/11/2018";
+			string rule = "FREQ=YEARLY; BYMONTHDAY=12; BYMONTH=12; INTERVAL=1; UNTIL=20180611";
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
             string ruleResult = converter.Convert(props);
 
-			Assert.AreEqual("FREQ=YEARLY;INTERVAL=1;UNTIL=6/11/2018;BYMONTHDAY=12;BYMONTH=12;", ruleResult);
+			Assert.AreEqual("FREQ=YEARLY;INTERVAL=1;UNTIL=20180611;BYMONTHDAY=12;BYMONTH=12;", ruleResult);
 		}      
 	}
 }

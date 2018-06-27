@@ -93,7 +93,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Count10_Until10012019_BYMONTHDAY28()
         {
-            string rule = "FREQ=MONTHLY;COUNT=10;UNTIL=10/01/2019;BYMONTHDAY=28;";
+            string rule = "FREQ=MONTHLY;COUNT=10;UNTIL=20191001;BYMONTHDAY=28;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
@@ -113,7 +113,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until05012019_BYMONTHDAY30()
         {
-            string rule = "FREQ=MONTHLY;COUNT=10;UNTIL=05/01/2019;BYMONTHDAY=30;";
+            string rule = "FREQ=MONTHLY;COUNT=10;UNTIL=20190501;BYMONTHDAY=30;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -132,7 +132,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until05012019_BYMONTHDAY31()
         {
-            string rule = "FREQ=MONTHLY;COUNT=10;UNTIL=05/01/2019;BYMONTHDAY=31;";
+            string rule = "FREQ=MONTHLY;COUNT=10;UNTIL=20190501;BYMONTHDAY=31;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -151,7 +151,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until05012019_BYMONTHDAY31_LeapYEAR()
         {
-            string rule = "FREQ=MONTHLY;COUNT=10;UNTIL=05/01/2020;BYMONTHDAY=31;";
+            string rule = "FREQ=MONTHLY;COUNT=10;UNTIL=20200501;BYMONTHDAY=31;";
             DateTime startDate = new DateTime(2019, 09, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -170,7 +170,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval2_Until05012019_BYMONTHDAY31_LeapYEAR_StartdayBigger()
         {
-            string rule = "FREQ=MONTHLY;INTERVAL=2;COUNT=10;UNTIL=05/01/2020;BYMONTHDAY=30;";
+            string rule = "FREQ=MONTHLY;INTERVAL=2;COUNT=10;UNTIL=20200501;BYMONTHDAY=30;";
             DateTime startDate = new DateTime(2019, 01, 31, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -189,7 +189,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until05012019_BYDAYMO_BYSETPOS2()
         {
-            string rule = "FREQ=MONTHLY;UNTIL=05/01/2019;BYDAY=MO;BYSETPOS=2;";
+            string rule = "FREQ=MONTHLY;UNTIL=20190501;BYDAY=MO;BYSETPOS=2;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -216,7 +216,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until05012019_BYDAYMO_BYSETPOS1()
         {
-            string rule = "FREQ=MONTHLY;UNTIL=05/01/2019;BYDAY=MO;BYSETPOS=1;";
+            string rule = "FREQ=MONTHLY;UNTIL=20190501;BYDAY=MO;BYSETPOS=1;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -243,7 +243,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until05012019_BYDAYMO_BYSETPOS5()
         {
-            string rule = "FREQ=MONTHLY;UNTIL=05/01/2019;BYDAY=MO;BYSETPOS=5;";
+            string rule = "FREQ=MONTHLY;UNTIL=20190501;BYDAY=MO;BYSETPOS=5;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -265,7 +265,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until05012019_BYDAYSA_BYSETPOS4()
         {
-            string rule = "FREQ=MONTHLY;UNTIL=05/01/2019;BYDAY=SA;BYSETPOS=4;";
+            string rule = "FREQ=MONTHLY;UNTIL=20190501;BYDAY=SA;BYSETPOS=4;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
@@ -293,7 +293,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_Until05012019_BYDAYMO_BYSETPOS1_Skip1stMonth()
         {
-            string rule = "FREQ=MONTHLY;UNTIL=05/01/2019;BYDAY=MO;BYSETPOS=1;";
+            string rule = "FREQ=MONTHLY;UNTIL=20190501;BYDAY=MO;BYSETPOS=1;";
             DateTime startDate = new DateTime(2018, 09, 30, 10, 11, 12);
 
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
