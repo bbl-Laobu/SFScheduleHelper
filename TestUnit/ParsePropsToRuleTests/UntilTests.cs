@@ -38,7 +38,7 @@ namespace TestUnit.ParsePropsToRuleTests
 
 			string ruleResult = converter.Convert(props);
 
-            Assert.AreEqual("FREQ=WEEKLY;INTERVAL=2;COUNT=4;UNTIL=12/31/2018;BYDAY=WE;", ruleResult);
+            Assert.AreEqual("FREQ=WEEKLY;INTERVAL=2;UNTIL=12/31/2018;BYDAY=WE;", ruleResult);
         }      
     }
 }

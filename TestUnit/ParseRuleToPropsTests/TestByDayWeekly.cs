@@ -77,13 +77,13 @@ namespace TestUnit.ParseRuleToPropsTests
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(true, props.IsWeeklySunday);
-            Assert.AreEqual(false, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-            Assert.AreEqual(false, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-            Assert.AreEqual(false, props.IsWeeklyFriday);
-            Assert.AreEqual(false, props.IsWeeklySaturday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         }   
 
 		[Test()]
@@ -93,13 +93,13 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(false, props.IsWeeklySunday);
-            Assert.AreEqual(true, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-            Assert.AreEqual(false, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-            Assert.AreEqual(false, props.IsWeeklyFriday);
-            Assert.AreEqual(false, props.IsWeeklySaturday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         }  
 
 		[Test()]
@@ -109,13 +109,13 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(false, props.IsWeeklySunday);
-			Assert.AreEqual(false, props.IsWeeklyMonday);
-			Assert.AreEqual(true, props.IsWeeklyTuesday);
-            Assert.AreEqual(false, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-            Assert.AreEqual(false, props.IsWeeklyFriday);
-            Assert.AreEqual(false, props.IsWeeklySaturday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         }  
 
 		[Test()]
@@ -124,14 +124,14 @@ namespace TestUnit.ParseRuleToPropsTests
             string rule = "FREQ=WEEKLY;BYDAY=wE";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
-            
-            Assert.AreEqual(false, props.IsWeeklySunday);
-			Assert.AreEqual(false, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-			Assert.AreEqual(true, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-            Assert.AreEqual(false, props.IsWeeklyFriday);
-            Assert.AreEqual(false, props.IsWeeklySaturday);
+
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         }  
 
 		[Test()]
@@ -140,14 +140,14 @@ namespace TestUnit.ParseRuleToPropsTests
             string rule = "FREQ=WEEKLY;BYDAY=Th";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
-            
-            Assert.AreEqual(false, props.IsWeeklySunday);
-			Assert.AreEqual(false, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-            Assert.AreEqual(false, props.IsWeeklyWednesday);
-			Assert.AreEqual(true, props.IsWeeklyThursday);
-            Assert.AreEqual(false, props.IsWeeklyFriday);
-            Assert.AreEqual(false, props.IsWeeklySaturday);
+
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         }  
 
 		[Test()]
@@ -156,14 +156,14 @@ namespace TestUnit.ParseRuleToPropsTests
             string rule = "FREQ=WEEKLY;BYDAY=FR";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
-            
-            Assert.AreEqual(false, props.IsWeeklySunday);
-			Assert.AreEqual(false, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-            Assert.AreEqual(false, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-			Assert.AreEqual(true, props.IsWeeklyFriday);
-            Assert.AreEqual(false, props.IsWeeklySaturday);
+
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         }  
 
 		[Test()]
@@ -172,14 +172,14 @@ namespace TestUnit.ParseRuleToPropsTests
             string rule = "FREQ=WEEKLY;BYDAY=SA";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
-            
-            Assert.AreEqual(false, props.IsWeeklySunday);
-			Assert.AreEqual(false, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-            Assert.AreEqual(false, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-            Assert.AreEqual(false, props.IsWeeklyFriday);
-			Assert.AreEqual(true, props.IsWeeklySaturday);
+
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         }  
 
 		[Test()]
@@ -188,14 +188,14 @@ namespace TestUnit.ParseRuleToPropsTests
             string rule = "FREQ=WEEKLY;BYDAY=MO,WE,FR";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
-            
-            Assert.AreEqual(false, props.IsWeeklySunday);
-            Assert.AreEqual(true, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-			Assert.AreEqual(true, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-			Assert.AreEqual(true, props.IsWeeklyFriday);
-			Assert.AreEqual(false, props.IsWeeklySaturday);
+
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         } 
 
 		[Test()]
@@ -205,13 +205,13 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(false, props.IsWeeklySunday);
-            Assert.AreEqual(true, props.IsWeeklyMonday);
-            Assert.AreEqual(false, props.IsWeeklyTuesday);
-            Assert.AreEqual(true, props.IsWeeklyWednesday);
-            Assert.AreEqual(false, props.IsWeeklyThursday);
-            Assert.AreEqual(true, props.IsWeeklyFriday);
-            Assert.AreEqual(false, props.IsWeeklySaturday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(false, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         } 
 
 		[Test()]
@@ -221,13 +221,13 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-			Assert.AreEqual(true, props.IsWeeklySunday);
-            Assert.AreEqual(true, props.IsWeeklyMonday);
-			Assert.AreEqual(true, props.IsWeeklyTuesday);
-            Assert.AreEqual(true, props.IsWeeklyWednesday);
-			Assert.AreEqual(true, props.IsWeeklyThursday);
-            Assert.AreEqual(true, props.IsWeeklyFriday);
-			Assert.AreEqual(true, props.IsWeeklySaturday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Sunday) == WeekDays.Sunday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday);
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Saturday) == WeekDays.Saturday);
         }      
     }
 }

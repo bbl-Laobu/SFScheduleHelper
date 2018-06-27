@@ -345,7 +345,7 @@ namespace Kareke.SFScheduleHelper
             // Instantiate
             recurrenceProperties = new RecurrenceProperties
             {
-                RangeStartDate = _startDate
+                StartDate = _startDate
             };
 
             // FREQ set
@@ -357,34 +357,34 @@ namespace Kareke.SFScheduleHelper
             switch (freq)
             {
                 case RecurrenceType.Daily:
-                    recurrenceProperties.DailyNDays = interval;
+                    recurrenceProperties.Interval = interval;
                     recurrenceProperties.IsDailyEveryNDays = true;
                     break;
                 case RecurrenceType.Weekly:
-                    recurrenceProperties.WeeklyEveryNWeeks = interval;
+                    recurrenceProperties.Interval = interval;
                     break;
                 case RecurrenceType.Monthly:
-                    recurrenceProperties.MonthlyEveryNMonths = interval;
+                    recurrenceProperties.Interval = interval;
                     break;
                 case RecurrenceType.Yearly:
-                    recurrenceProperties.YearlyEveryNYears = interval;
+                    recurrenceProperties.Interval = interval;
                     break;
             }
 
             // COUNT set
             if (hasCount && count > 0)
             {
-                recurrenceProperties.IsRangeRecurrenceCount = true;
-                recurrenceProperties.RangeRecurrenceCount = count;
+                recurrenceProperties.RecurrenceRange = RecurrenceRange.Count;
+                recurrenceProperties.RecurrenceCount = count;
             }
 
             // UNTIL set
             if (hasUntil)
             {
-                recurrenceProperties.IsRangeEndDate = true;
-                recurrenceProperties.RangeEndDate = until;
+                recurrenceProperties.RecurrenceRange = RecurrenceRange.EndDate;
+                recurrenceProperties.EndDate = until;
             }
-            else recurrenceProperties.IsRangeNoEndDate = true;
+            else if (!hasCount) recurrenceProperties.RecurrenceRange = RecurrenceRange.NoEndDate;
 
             // BYDAY set
             if (hasByDay)
@@ -398,11 +398,11 @@ namespace Kareke.SFScheduleHelper
                         }
                         break;
                     case RecurrenceType.Monthly:
-                        recurrenceProperties.MonthlyWeekDay = GetWeekDayValue(byDay[0]);
+                        recurrenceProperties.DayOfWeek = GetWeekDayValue(byDay[0]);
                         break;
 
                     case RecurrenceType.Yearly:
-                        recurrenceProperties.YearlyWeekDay = GetWeekDayValue(byDay[0]);
+                        recurrenceProperties.DayOfWeek = GetWeekDayValue(byDay[0]);
                         break;
                 }
             }
@@ -413,11 +413,11 @@ namespace Kareke.SFScheduleHelper
                 switch (freq)
                 {
                     case RecurrenceType.Monthly:
-                        recurrenceProperties.MonthlySpecificMonthDay = byMonthDay;
+                        recurrenceProperties.DayOfMonth = byMonthDay;
                         recurrenceProperties.IsMonthlySpecific = true;
                         break;
                     case RecurrenceType.Yearly:
-                        recurrenceProperties.YearlySpecificMonthDay = byMonthDay;
+                        recurrenceProperties.DayOfMonth = byMonthDay;
                         recurrenceProperties.IsMonthlySpecific = false;
                         break;
                 }
@@ -429,7 +429,7 @@ namespace Kareke.SFScheduleHelper
                 switch (freq)
                 {
                     case RecurrenceType.Yearly:
-                        recurrenceProperties.YearlySpecificMonth = byMonth;
+                        recurrenceProperties.Month = byMonth;
                         recurrenceProperties.IsYearlySpecific = true;
                         break;
 
@@ -442,13 +442,13 @@ namespace Kareke.SFScheduleHelper
                 switch (freq)
                 {
                     case RecurrenceType.Weekly:
-                        recurrenceProperties.NthWeek = bySetPos;
+                        recurrenceProperties.Week = bySetPos;
                         break;
                     case RecurrenceType.Monthly:
-                        recurrenceProperties.MonthlyNthWeek = bySetPos;
+                        recurrenceProperties.Week = bySetPos;
                         break;
                     case RecurrenceType.Yearly:
-                        recurrenceProperties.YearlyNthWeek = bySetPos;
+                        recurrenceProperties.Week = bySetPos;
                         break;
                 }
             }
@@ -461,13 +461,13 @@ namespace Kareke.SFScheduleHelper
             weekDay = string.IsNullOrEmpty(weekDay) ? string.Empty : weekDay.ToUpper().Trim();
             switch (weekDay)
             {
-                case "SU": recurrenceProperties.IsWeeklySunday = true; break;
-                case "MO": recurrenceProperties.IsWeeklyMonday = true; break;
-                case "TU": recurrenceProperties.IsWeeklyTuesday = true; break;
-                case "WE": recurrenceProperties.IsWeeklyWednesday = true; break;
-                case "TH": recurrenceProperties.IsWeeklyThursday = true; break;
-                case "FR": recurrenceProperties.IsWeeklyFriday = true; break;
-                case "SA": recurrenceProperties.IsWeeklySaturday = true; break;
+                case "SU": recurrenceProperties.WeekDays |= WeekDays.Sunday; break;
+                case "MO": recurrenceProperties.WeekDays |= WeekDays.Monday; break;
+                case "TU": recurrenceProperties.WeekDays |= WeekDays.Tuesday; break;
+                case "WE": recurrenceProperties.WeekDays |= WeekDays.Wednesday; break;
+                case "TH": recurrenceProperties.WeekDays |= WeekDays.Thursday; break;
+                case "FR": recurrenceProperties.WeekDays |= WeekDays.Friday; break;
+                case "SA": recurrenceProperties.WeekDays |= WeekDays.Saturday; break;
                 default: break;
             }
         }
@@ -476,13 +476,13 @@ namespace Kareke.SFScheduleHelper
         {
             switch (weekDay)
             {
-                case 0: recurrenceProperties.IsWeeklySunday = true; break;
-                case 1: recurrenceProperties.IsWeeklyMonday = true; break;
-                case 2: recurrenceProperties.IsWeeklyTuesday = true; break;
-                case 3: recurrenceProperties.IsWeeklyWednesday = true; break;
-                case 4: recurrenceProperties.IsWeeklyThursday = true; break;
-                case 5: recurrenceProperties.IsWeeklyFriday = true; break;
-                case 6: recurrenceProperties.IsWeeklySaturday = true; break;
+                case 0: recurrenceProperties.WeekDays = WeekDays.Sunday; break;
+                case 1: recurrenceProperties.WeekDays = WeekDays.Monday; break;
+                case 2: recurrenceProperties.WeekDays = WeekDays.Tuesday; break;
+                case 3: recurrenceProperties.WeekDays = WeekDays.Wednesday; break;
+                case 4: recurrenceProperties.WeekDays = WeekDays.Thursday; break;
+                case 5: recurrenceProperties.WeekDays = WeekDays.Friday; break;
+                case 6: recurrenceProperties.WeekDays = WeekDays.Friday; break;
                 default: break;
             }
         }
@@ -492,13 +492,13 @@ namespace Kareke.SFScheduleHelper
             weekDay = string.IsNullOrEmpty(weekDay) ? string.Empty : weekDay.ToUpper().Trim();
             switch (weekDay)
             {
-                case "SU": recurrenceProperties.MonthlyWeekDay = 0; break;
-                case "MO": recurrenceProperties.MonthlyWeekDay = 1; break;
-                case "TU": recurrenceProperties.MonthlyWeekDay = 2; break;
-                case "WE": recurrenceProperties.MonthlyWeekDay = 3; break;
-                case "TH": recurrenceProperties.MonthlyWeekDay = 4; break;
-                case "FR": recurrenceProperties.MonthlyWeekDay = 5; break;
-                case "SA": recurrenceProperties.MonthlyWeekDay = 6; break;
+                case "SU": recurrenceProperties.DayOfWeek = 0; break;
+                case "MO": recurrenceProperties.DayOfWeek = 1; break;
+                case "TU": recurrenceProperties.DayOfWeek = 2; break;
+                case "WE": recurrenceProperties.DayOfWeek = 3; break;
+                case "TH": recurrenceProperties.DayOfWeek = 4; break;
+                case "FR": recurrenceProperties.DayOfWeek = 5; break;
+                case "SA": recurrenceProperties.DayOfWeek = 6; break;
                 default: break;
             }
         }

@@ -99,8 +99,8 @@ namespace TestUnit.ParseRuleToPropsTests
 			DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = parser.Convert(rule, startDate);
          
-			Assert.AreEqual(1, props.MonthlyNthWeek);
-            Assert.AreEqual(0, props.MonthlyWeekDay);
+			Assert.AreEqual(1, props.Week);
+            Assert.AreEqual(0, props.DayOfWeek);
         }   
 
 		[Test()]
@@ -110,8 +110,8 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = parser.Convert(rule, startDate);
          
-			Assert.AreEqual(2, props.MonthlyNthWeek);
-            Assert.AreEqual(6, props.MonthlyWeekDay);
+            Assert.AreEqual(2, props.Week);
+            Assert.AreEqual(6, props.DayOfWeek);
         }   
 
 		[Test()]
@@ -121,8 +121,8 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = parser.Convert(rule, startDate);
          
-			Assert.AreEqual(4, props.MonthlyNthWeek);
-            Assert.AreEqual(3, props.MonthlyWeekDay);
+            Assert.AreEqual(4, props.Week);
+            Assert.AreEqual(3, props.DayOfWeek);
         } 
     }
 }

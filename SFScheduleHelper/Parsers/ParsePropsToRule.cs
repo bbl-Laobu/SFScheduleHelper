@@ -60,35 +60,35 @@ namespace Kareke.SFScheduleHelper
 			switch (_recurrenceProperties.RecurrenceType)
             {
                 case RecurrenceType.Daily:
-					if(_recurrenceProperties.DailyNDays > 0 &&  _recurrenceProperties.IsDailyEveryNDays) 
-						intervalValue = _recurrenceProperties.DailyNDays;
+                    if(_recurrenceProperties.Interval > 0 && _recurrenceProperties.IsDailyEveryNDays == true) 
+                        intervalValue = _recurrenceProperties.Interval;
                     break;
                 case RecurrenceType.Weekly:
-					if (_recurrenceProperties.WeeklyEveryNWeeks > 0) 
-						intervalValue = _recurrenceProperties.WeeklyEveryNWeeks;
+                    if (_recurrenceProperties.Interval > 0) 
+                        intervalValue = _recurrenceProperties.Interval;
                     break;
                 case RecurrenceType.Monthly:
-					if (_recurrenceProperties.MonthlyEveryNMonths > 0) 
-						intervalValue = _recurrenceProperties.MonthlyEveryNMonths;
+                    if (_recurrenceProperties.Interval > 0) 
+                        intervalValue = _recurrenceProperties.Interval;
                     break;
                 case RecurrenceType.Yearly:
-					if (_recurrenceProperties.YearlyEveryNYears > 0) 
-						intervalValue = _recurrenceProperties.YearlyEveryNYears;
+                    if (_recurrenceProperties.Interval > 0) 
+                        intervalValue = _recurrenceProperties.Interval;
                     break;
             }
 			interval += intervalValue + ";";
 
 			// COUNT
 			count = string.Empty;
-			if (_recurrenceProperties.RangeRecurrenceCount > 0 && _recurrenceProperties.IsRangeRecurrenceCount) 
-				count = "COUNT=" + _recurrenceProperties.RangeRecurrenceCount.ToString() + ";";
+            if (_recurrenceProperties.RecurrenceRange == RecurrenceRange.Count && _recurrenceProperties.RecurrenceCount > 0) 
+                count = "COUNT=" + _recurrenceProperties.RecurrenceCount.ToString() + ";";
 
 			// UNTIL
 			until = string.Empty;
-			if (_recurrenceProperties.RangeEndDate > DateTime.MinValue && _recurrenceProperties.IsRangeEndDate) 
-				until = "UNTIL=" + _recurrenceProperties.RangeEndDate.Month.ToString() 
-				                              + "/" + _recurrenceProperties.RangeEndDate.Day.ToString()
-				                              + "/" + _recurrenceProperties.RangeEndDate.Year.ToString() + ";" ;
+            if (_recurrenceProperties.RecurrenceRange == RecurrenceRange.EndDate && _recurrenceProperties.EndDate > DateTime.MinValue) 
+                until = "UNTIL=" + _recurrenceProperties.EndDate.Month.ToString() 
+                                                        + "/" + _recurrenceProperties.EndDate.Day.ToString()
+                                                        + "/" + _recurrenceProperties.EndDate.Year.ToString() + ";" ;
 
 			// BYDAY
 			byDay = string.Empty;
@@ -96,37 +96,37 @@ namespace Kareke.SFScheduleHelper
 			switch (_recurrenceProperties.RecurrenceType)
             {
 				case RecurrenceType.Weekly:
-			    	if (_recurrenceProperties.IsWeeklySunday) weekdays += "SU,";
-			    	if (_recurrenceProperties.IsWeeklyMonday) weekdays += "MO,";
-		    		if (_recurrenceProperties.IsWeeklyTuesday) weekdays += "TU,";
-		    		if (_recurrenceProperties.IsWeeklyWednesday) weekdays += "WE,";
-		    		if (_recurrenceProperties.IsWeeklyThursday) weekdays += "TH,";
-		    		if (_recurrenceProperties.IsWeeklyFriday) weekdays += "FR,";
-    				if (_recurrenceProperties.IsWeeklySaturday) weekdays += "SA,";
+                    if ((_recurrenceProperties.WeekDays & WeekDays.Sunday) == WeekDays.Sunday) weekdays += "SU,";
+                    if ((_recurrenceProperties.WeekDays & WeekDays.Monday) == WeekDays.Monday) weekdays += "MO,";
+                    if ((_recurrenceProperties.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday) weekdays += "TU,";
+                    if ((_recurrenceProperties.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday) weekdays += "WE,";
+                    if ((_recurrenceProperties.WeekDays & WeekDays.Thursday) == WeekDays.Thursday) weekdays += "TH,";
+                    if ((_recurrenceProperties.WeekDays & WeekDays.Friday) == WeekDays.Friday) weekdays += "FR,";
+                    if ((_recurrenceProperties.WeekDays & WeekDays.Saturday) == WeekDays.Saturday) weekdays += "SA,";
 					break;
 
 				case RecurrenceType.Monthly:
-                    if (!_recurrenceProperties.IsMonthlySpecific && _recurrenceProperties.MonthlyNthWeek > 0)
+                    if (_recurrenceProperties.Week > 0 && !_recurrenceProperties.IsMonthlySpecific)
                     {
-                        if (_recurrenceProperties.MonthlyWeekDay == 0) weekdays += "SU,";
-                        if (_recurrenceProperties.MonthlyWeekDay == 1) weekdays += "MO,";
-                        if (_recurrenceProperties.MonthlyWeekDay == 2) weekdays += "TU,";
-                        if (_recurrenceProperties.MonthlyWeekDay == 3) weekdays += "WE,";
-                        if (_recurrenceProperties.MonthlyWeekDay == 4) weekdays += "TH,";
-                        if (_recurrenceProperties.MonthlyWeekDay == 5) weekdays += "FR,";
-                        if (_recurrenceProperties.MonthlyWeekDay == 6) weekdays += "SA,";
+                        if (_recurrenceProperties.DayOfWeek == 0) weekdays += "SU,";
+                        if (_recurrenceProperties.DayOfWeek == 1) weekdays += "MO,";
+                        if (_recurrenceProperties.DayOfWeek == 2) weekdays += "TU,";
+                        if (_recurrenceProperties.DayOfWeek == 3) weekdays += "WE,";
+                        if (_recurrenceProperties.DayOfWeek == 4) weekdays += "TH,";
+                        if (_recurrenceProperties.DayOfWeek == 5) weekdays += "FR,";
+                        if (_recurrenceProperties.DayOfWeek == 6) weekdays += "SA,";
                     }
                     break;
                 case RecurrenceType.Yearly:
-                    if (_recurrenceProperties.YearlyNthWeek > 0)
+                    if (_recurrenceProperties.Week > 0)
                     {
-                        if (_recurrenceProperties.YearlyWeekDay == 0) weekdays += "SU,";
-                        if (_recurrenceProperties.YearlyWeekDay == 1) weekdays += "MO,";
-                        if (_recurrenceProperties.YearlyWeekDay == 2) weekdays += "TU,";
-                        if (_recurrenceProperties.YearlyWeekDay == 3) weekdays += "WE,";
-                        if (_recurrenceProperties.YearlyWeekDay == 4) weekdays += "TH,";
-                        if (_recurrenceProperties.YearlyWeekDay == 5) weekdays += "FR,";
-                        if (_recurrenceProperties.YearlyWeekDay == 6) weekdays += "SA,";
+                        if (_recurrenceProperties.DayOfWeek == 0) weekdays += "SU,";
+                        if (_recurrenceProperties.DayOfWeek == 1) weekdays += "MO,";
+                        if (_recurrenceProperties.DayOfWeek == 2) weekdays += "TU,";
+                        if (_recurrenceProperties.DayOfWeek == 3) weekdays += "WE,";
+                        if (_recurrenceProperties.DayOfWeek == 4) weekdays += "TH,";
+                        if (_recurrenceProperties.DayOfWeek == 5) weekdays += "FR,";
+                        if (_recurrenceProperties.DayOfWeek == 6) weekdays += "SA,";
                     }
                     break;
 			}
@@ -138,16 +138,16 @@ namespace Kareke.SFScheduleHelper
             switch (_recurrenceProperties.RecurrenceType)
             {
                 case RecurrenceType.Weekly:
-                    if (_recurrenceProperties.NthWeek > 0)
-                        bySetPos = "BYSETPOS=" + _recurrenceProperties.NthWeek.ToString() + ";";
+                    if (_recurrenceProperties.Week > 0)
+                        bySetPos = "BYSETPOS=" + _recurrenceProperties.Week.ToString() + ";";
                     break;
                 case RecurrenceType.Monthly:
-                    if (_recurrenceProperties.MonthlyNthWeek > 0)
-                        bySetPos = "BYSETPOS=" + _recurrenceProperties.MonthlyNthWeek.ToString() + ";";
+                    if (_recurrenceProperties.Week > 0)
+                        bySetPos = "BYSETPOS=" + _recurrenceProperties.Week.ToString() + ";";
                     break;
                 case RecurrenceType.Yearly:
-                    if (_recurrenceProperties.YearlyNthWeek > 0)
-                        bySetPos = "BYSETPOS=" + _recurrenceProperties.YearlyNthWeek.ToString() + ";";
+                    if (_recurrenceProperties.Week > 0)
+                        bySetPos = "BYSETPOS=" + _recurrenceProperties.Week.ToString() + ";";
                     break;
             }
 
@@ -156,12 +156,12 @@ namespace Kareke.SFScheduleHelper
             switch (_recurrenceProperties.RecurrenceType)
             {
                 case RecurrenceType.Monthly:
-					if (_recurrenceProperties.MonthlySpecificMonthDay > 0 && _recurrenceProperties.IsMonthlySpecific) 
-						byMonthDay = "BYMONTHDAY=" + _recurrenceProperties.MonthlySpecificMonthDay.ToString() + ";";
+					if (_recurrenceProperties.DayOfMonth > 0 && _recurrenceProperties.IsMonthlySpecific) 
+                        byMonthDay = "BYMONTHDAY=" + _recurrenceProperties.DayOfMonth.ToString() + ";";
                     break;
                 case RecurrenceType.Yearly:
-					if (_recurrenceProperties.YearlySpecificMonthDay > 0 && !_recurrenceProperties.IsMonthlySpecific)
-						byMonthDay = "BYMONTHDAY=" + _recurrenceProperties.YearlySpecificMonthDay.ToString() + ";";
+                    if (_recurrenceProperties.DayOfMonth > 0 && _recurrenceProperties.Week <= 0)
+                        byMonthDay = "BYMONTHDAY=" + _recurrenceProperties.DayOfMonth.ToString() + ";";
 					break;
             }
 
@@ -170,8 +170,8 @@ namespace Kareke.SFScheduleHelper
             switch (_recurrenceProperties.RecurrenceType)
             {
                 case RecurrenceType.Yearly:
-					if (_recurrenceProperties.YearlySpecificMonth > 0 && _recurrenceProperties.IsYearlySpecific)
-						byMonth = "BYMONTH=" + _recurrenceProperties.YearlySpecificMonth.ToString() + ";";
+					if (_recurrenceProperties.Month > 0 && _recurrenceProperties.IsYearlySpecific)
+						byMonth = "BYMONTH=" + _recurrenceProperties.Month.ToString() + ";";
                     break;
             }
 

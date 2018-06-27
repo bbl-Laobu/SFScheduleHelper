@@ -45,9 +45,9 @@ namespace TestUnit.ParseRuleToPropsTests
             RecurrenceProperties props = parser.Convert(rule, startDate);
 
             Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType);
-            Assert.AreEqual(1, props.DailyNDays);
-            Assert.AreEqual(true, props.IsRangeRecurrenceCount);
-            Assert.AreEqual(2, props.RangeRecurrenceCount);
+            Assert.AreEqual(1, props.Interval);
+            Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count);
+            Assert.AreEqual(2, props.RecurrenceCount);
         }
 
         [Test()]
@@ -58,9 +58,9 @@ namespace TestUnit.ParseRuleToPropsTests
             RecurrenceProperties props = parser.Convert(rule, startDate);
 
             Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType);
-            Assert.AreEqual(2, props.WeeklyEveryNWeeks);
-            Assert.AreEqual(true, props.IsRangeRecurrenceCount);
-            Assert.AreEqual(4, props.RangeRecurrenceCount);
+            Assert.AreEqual(2, props.Interval);
+            Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count);
+            Assert.AreEqual(4, props.RecurrenceCount);
         }
 
         [Test()]
@@ -71,9 +71,9 @@ namespace TestUnit.ParseRuleToPropsTests
             RecurrenceProperties props = parser.Convert(rule, startDate);
 
             Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType);
-            Assert.AreEqual(1, props.DailyNDays);
-            Assert.AreEqual(false, props.IsRangeRecurrenceCount);
-            Assert.AreEqual(1, props.RangeRecurrenceCount);
+            Assert.AreEqual(1, props.Interval);
+            Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate);
+            Assert.AreEqual(1, props.RecurrenceCount);
         }
 
         [Test()]

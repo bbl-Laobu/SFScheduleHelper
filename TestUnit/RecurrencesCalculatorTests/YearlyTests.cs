@@ -25,7 +25,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             ObservableCollection<DateTime> recurrenceDates = calculator.AllRecurrenceDates(rule, startDate) as ObservableCollection<DateTime>;
 
             Assert.AreEqual(new DateTime(2018, 12, 01, 10, 11, 12), recurrenceDates[0], "Pos: 0");
-            Assert.AreEqual(1, recurrenceDates.Count, "Count");
+            Assert.AreEqual(200, recurrenceDates.Count, "Count");
         }
 
         [Test()]
@@ -125,8 +125,8 @@ namespace TestUnit.RecurrencesCalculatorTests
                 count++;
             }
             // Check dates
-            Assert.AreEqual(new DateTime(2018, 02, 24, 10, 11, 12), recurrenceDates[0], "Pos: 0");
-            Assert.AreEqual(new DateTime(2019, 02, 23, 10, 11, 12), recurrenceDates[1], "Pos: 1");
+            Assert.AreEqual(new DateTime(2018, 02, 17, 10, 11, 12), recurrenceDates[0], "Pos: 0");
+            Assert.AreEqual(new DateTime(2019, 02, 16, 10, 11, 12), recurrenceDates[1], "Pos: 1");
             Assert.AreEqual(2, recurrenceDates.Count, "Count");
         }
 

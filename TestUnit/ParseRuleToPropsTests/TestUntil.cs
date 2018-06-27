@@ -57,9 +57,9 @@ namespace TestUnit.ParseRuleToPropsTests
 
 			DateTime expectedDate = new DateTime(2018, 10, 15,23,59,59);
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType);
-			Assert.AreEqual(1, props.DailyNDays);
-			Assert.AreEqual(true, props.IsRangeEndDate);
-			Assert.AreEqual(expectedDate.Ticks, props.RangeEndDate.Ticks);
+			Assert.AreEqual(1, props.Interval);
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.EndDate);
+			Assert.AreEqual(expectedDate.Ticks, props.EndDate.Ticks);
         }   
 
 		[Test()]
@@ -71,11 +71,11 @@ namespace TestUnit.ParseRuleToPropsTests
 
 			DateTime expectedDate = new DateTime(2018, 12, 31, 23, 59, 59);
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType);
-            Assert.AreEqual(2, props.WeeklyEveryNWeeks);
-            Assert.AreEqual(true, props.IsRangeRecurrenceCount);
-            Assert.AreEqual(4, props.RangeRecurrenceCount);
-            Assert.AreEqual(true, props.IsRangeEndDate);
-            Assert.AreEqual(expectedDate.Ticks, props.RangeEndDate.Ticks);
+            Assert.AreEqual(2, props.Interval);
+            //Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count);
+            //Assert.AreEqual(4, props.RecurrenceCount);
+            Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.EndDate);
+            Assert.AreEqual(expectedDate.Ticks, props.EndDate.Ticks);
         } 
 
 		[Test()]
@@ -85,8 +85,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 			RecurrenceProperties props = parser.Convert(rule, startDate);
 
-            Assert.AreEqual(false, props.IsRangeEndDate);
-            Assert.AreEqual(true, props.IsRangeNoEndDate);
+            Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate);
         }
 
 

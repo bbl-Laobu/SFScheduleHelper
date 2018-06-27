@@ -20,7 +20,7 @@ namespace TestUnit.RecurrencesCalculatorTests
             string rule = "FREQ=DAILY;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
-            var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);
+            var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate, 1);
 
             int pos = 0;
             foreach (var recDate in recurrenceDates)

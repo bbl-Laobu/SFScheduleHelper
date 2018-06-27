@@ -19,7 +19,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Interval1_BYMONTHDAY1()
         {
-            string rule = "FREQ=MONTHLY;BYMONTHDAY=1;";
+            string rule = "FREQ=MONTHLY;COUNT=1;BYMONTHDAY=1;";
             DateTime startDate = new DateTime(2019, 01, 01, 10, 11, 12);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);

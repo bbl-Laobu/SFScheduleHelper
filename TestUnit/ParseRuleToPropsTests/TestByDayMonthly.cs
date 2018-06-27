@@ -76,7 +76,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-			Assert.AreEqual(0, props.MonthlyWeekDay);
+            Assert.AreEqual(0, props.DayOfWeek);
         }
 
         [Test()]
@@ -86,7 +86,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(1, props.MonthlyWeekDay);
+            Assert.AreEqual(1, props.DayOfWeek);
         }
 
         [Test()]
@@ -96,7 +96,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(2, props.MonthlyWeekDay);
+            Assert.AreEqual(2, props.DayOfWeek);
         }
 
         [Test()]
@@ -106,7 +106,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(3, props.MonthlyWeekDay);
+            Assert.AreEqual(3, props.DayOfWeek);
         }
 
         [Test()]
@@ -116,7 +116,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(4, props.MonthlyWeekDay);
+            Assert.AreEqual(4, props.DayOfWeek);
         }
 
         [Test()]
@@ -126,7 +126,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(5, props.MonthlyWeekDay);
+            Assert.AreEqual(5, props.DayOfWeek);
         }
 
         [Test()]
@@ -136,7 +136,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(6, props.MonthlyWeekDay);
+            Assert.AreEqual(6, props.DayOfWeek);
         }
 
         [Test()]
@@ -146,7 +146,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(3, props.MonthlyWeekDay);
+            Assert.AreEqual(3, props.DayOfWeek);
         }
 
         [Test()]
@@ -156,7 +156,7 @@ namespace TestUnit.ParseRuleToPropsTests
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             RecurrenceProperties props = parser.Convert(rule, startDate);
             
-            Assert.AreEqual(1, props.MonthlyWeekDay);
+            Assert.AreEqual(1, props.DayOfWeek);
         }
     }
 }

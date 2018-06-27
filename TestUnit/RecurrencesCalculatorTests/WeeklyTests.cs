@@ -17,7 +17,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void InterVal1_ByDaySA()
         {
-            string rule = "FREQ=Weekly;BYDAY=SA;";
+            string rule = "FREQ=Weekly;Count=1;BYDAY=SA;";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
 
             var recurrenceDates = calculator.AllRecurrenceDates(rule, startDate);

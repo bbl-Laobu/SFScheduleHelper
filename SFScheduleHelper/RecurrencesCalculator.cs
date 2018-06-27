@@ -109,8 +109,9 @@ namespace Kareke.SFScheduleHelper
             recurrenceDates = new ObservableCollection<DateTime>();
             ObservableCollection<DateTime> nextRecurrenceDates = new ObservableCollection<DateTime>(); 
 
-            while (((properties.IsRangeEndDate && nextDate <= properties.RangeEndDate)
-                                || (properties.IsRangeNoEndDate && count <= properties.RangeRecurrenceCount))
+            while (((properties.RecurrenceRange == RecurrenceRange.EndDate && nextDate <= properties.EndDate)
+                    || (properties.RecurrenceRange == RecurrenceRange.Count && count <= properties.RecurrenceCount)
+                    || (properties.RecurrenceRange == RecurrenceRange.NoEndDate))
                    && count <= maxReturns && datesFound < maxDatesReturned)
             {
                 CalculateForRecurrenceType();
@@ -152,8 +153,9 @@ namespace Kareke.SFScheduleHelper
             recurrenceDates = new ObservableCollection<DateTime> { DateTime.MinValue };
             DateTime currentRecurrence = DateTime.MinValue;
 
-            while (((properties.IsRangeEndDate && nextDate <= properties.RangeEndDate)
-                                || (properties.IsRangeNoEndDate && count <= properties.RangeRecurrenceCount))
+            while (((properties.RecurrenceRange == RecurrenceRange.EndDate && nextDate <= properties.EndDate)
+                        || (properties.RecurrenceRange == RecurrenceRange.Count && count <= properties.RecurrenceCount)
+                        || (properties.RecurrenceRange == RecurrenceRange.NoEndDate))
                    && count <= maxReturns && recurrenceDates.Last() <= currentDate)
             {
                 CalculateForRecurrenceType();
@@ -173,8 +175,9 @@ namespace Kareke.SFScheduleHelper
             count = 1;
             nextDate = _startDate;
             recurrenceDates = new ObservableCollection<DateTime>();
-            while (((properties.IsRangeEndDate && nextDate <= properties.RangeEndDate)
-                                || (properties.IsRangeNoEndDate && count <= properties.RangeRecurrenceCount))
+            while (((properties.RecurrenceRange == RecurrenceRange.EndDate && nextDate <= properties.EndDate)
+                    || (properties.RecurrenceRange == RecurrenceRange.Count && count <= properties.RecurrenceCount)
+                    || (properties.RecurrenceRange == RecurrenceRange.NoEndDate))
                    && (count <= maxReturns || noLimit == true))
             {
                 CalculateForRecurrenceType();
@@ -211,30 +214,30 @@ namespace Kareke.SFScheduleHelper
         void DailyCalculate()
         {
             AddDateToRecurrences();
-            nextDate = nextDate.AddDays(properties.DailyNDays);
+            nextDate = nextDate.AddDays(properties.Interval);
         }
 
         // WEEKLY
         // ----------
         void WeeklyCalculate()
         {
-            if (nextDate.DayOfWeek == DayOfWeek.Sunday && properties.IsWeeklySunday) AddDateToRecurrences();
-            if (nextDate.DayOfWeek == DayOfWeek.Monday && properties.IsWeeklyMonday) AddDateToRecurrences();
-            if (nextDate.DayOfWeek == DayOfWeek.Tuesday && properties.IsWeeklyTuesday) AddDateToRecurrences();
-            if (nextDate.DayOfWeek == DayOfWeek.Wednesday && properties.IsWeeklyWednesday) AddDateToRecurrences();
-            if (nextDate.DayOfWeek == DayOfWeek.Thursday && properties.IsWeeklyThursday) AddDateToRecurrences();
-            if (nextDate.DayOfWeek == DayOfWeek.Friday && properties.IsWeeklyFriday) AddDateToRecurrences();
-            if (nextDate.DayOfWeek == DayOfWeek.Saturday && properties.IsWeeklySaturday) AddDateToRecurrences();
+            if (nextDate.DayOfWeek == DayOfWeek.Sunday && (properties.WeekDays & WeekDays.Sunday) == WeekDays.Sunday) AddDateToRecurrences();
+            if (nextDate.DayOfWeek == DayOfWeek.Monday && (properties.WeekDays & WeekDays.Monday) == WeekDays.Monday) AddDateToRecurrences();
+            if (nextDate.DayOfWeek == DayOfWeek.Tuesday && (properties.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday) AddDateToRecurrences();
+            if (nextDate.DayOfWeek == DayOfWeek.Wednesday && (properties.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday) AddDateToRecurrences();
+            if (nextDate.DayOfWeek == DayOfWeek.Thursday && (properties.WeekDays & WeekDays.Thursday) == WeekDays.Thursday) AddDateToRecurrences();
+            if (nextDate.DayOfWeek == DayOfWeek.Friday && (properties.WeekDays & WeekDays.Friday) == WeekDays.Friday) AddDateToRecurrences();
+            if (nextDate.DayOfWeek == DayOfWeek.Saturday && (properties.WeekDays & WeekDays.Saturday) == WeekDays.Saturday) AddDateToRecurrences();
 
-            nextDate = nextDate.DayOfWeek == DayOfWeek.Saturday ? nextDate.AddDays(((properties.WeeklyEveryNWeeks - 1) * 7) + 1) : nextDate.AddDays(1);
+            nextDate = nextDate.DayOfWeek == DayOfWeek.Saturday ? nextDate.AddDays(((properties.Interval - 1) * 7) + 1) : nextDate.AddDays(1);
         }
 
         // MONTHLY
         // ----------
         void MonthlyCalculate()
         {
-            if (properties.IsMonthlySpecific && properties.MonthlySpecificMonthDay >= 1
-                && properties.MonthlySpecificMonthDay <= 31)
+            if (properties.IsMonthlySpecific && properties.DayOfMonth >= 1
+                && properties.DayOfMonth <= 31)
             {
                 CalculateMonthlyBySpecificMonthDay();
             }
@@ -248,32 +251,32 @@ namespace Kareke.SFScheduleHelper
         {
             // if First StartMonthday > monthDay => skip First month
             if (properties.IsMonthlySpecific
-                        && properties.MonthlySpecificMonthDay > 0 && properties.MonthlySpecificMonthDay <= 31
-                        && nextDate.Day > properties.MonthlySpecificMonthDay)
+                        && properties.DayOfMonth > 0 && properties.DayOfMonth <= 31
+                        && nextDate.Day > properties.DayOfMonth)
             {
                 nextDate = nextDate.AddMonths(1);
                 nextDate = new DateTime(nextDate.Year, nextDate.Month, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
             }
 
             // 1 - 29
-            if (properties.MonthlySpecificMonthDay <= 29)
+            if (properties.DayOfMonth <= 29)
             {
                 // 29th of february
-                if (nextDate.Month == 2 && properties.MonthlySpecificMonthDay == 29)
+                if (nextDate.Month == 2 && properties.DayOfMonth == 29)
                 {
                     nextDate = new DateTime(nextDate.Year, nextDate.Month, DateTime.DaysInMonth(nextDate.Year, 2), nextDate.Hour, nextDate.Minute, nextDate.Second);
                     AddDateToRecurrences();
-                    nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
+                    nextDate = nextDate.AddMonths(properties.Interval);
                 }
                 else
                 {
                     // 1 - 29 
-                    nextDate = new DateTime(nextDate.Year, nextDate.Month, properties.MonthlySpecificMonthDay, nextDate.Hour, nextDate.Minute, nextDate.Second);
+                    nextDate = new DateTime(nextDate.Year, nextDate.Month, properties.DayOfMonth, nextDate.Hour, nextDate.Minute, nextDate.Second);
                     AddDateToRecurrences();
-                    nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
+                    nextDate = nextDate.AddMonths(properties.Interval);
                 }
             }
-            else if (properties.MonthlySpecificMonthDay == 30)
+            else if (properties.DayOfMonth == 30)
             {
                 // 30 
                 if (nextDate.Month == 2) // check february
@@ -282,14 +285,14 @@ namespace Kareke.SFScheduleHelper
                     nextDate = new DateTime(nextDate.Year, nextDate.Month, 30, nextDate.Hour, nextDate.Minute, nextDate.Second);
 
                 AddDateToRecurrences();
-                nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
+                nextDate = nextDate.AddMonths(properties.Interval);
             }
             else
             {
                 // 31 
                 nextDate = new DateTime(nextDate.Year, nextDate.Month, DateTime.DaysInMonth(nextDate.Year, nextDate.Month), nextDate.Hour, nextDate.Minute, nextDate.Second);
                 AddDateToRecurrences();
-                nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
+                nextDate = nextDate.AddMonths(properties.Interval);
             }
         }
 
@@ -304,11 +307,11 @@ namespace Kareke.SFScheduleHelper
             DateTime weekStartDate = monthStart.AddDays(-monthStartWeekday);
 
             int nthWeek;
-            if (monthStartWeekday <= properties.MonthlyWeekDay) nthWeek = properties.MonthlyNthWeek - 1;
-            else nthWeek = properties.MonthlyNthWeek;
+            if (monthStartWeekday <= properties.DayOfWeek) nthWeek = properties.Week - 1;
+            else nthWeek = properties.Week;
 
             nextDate = weekStartDate.AddDays((nthWeek) * 7);
-            nextDate = nextDate.AddDays(properties.MonthlyWeekDay);
+            nextDate = nextDate.AddDays(properties.DayOfWeek);
 
             if (currentMonth == nextDate.Month)
             {
@@ -319,7 +322,7 @@ namespace Kareke.SFScheduleHelper
                 else
                 {
                     AddDateToRecurrences();
-                    nextDate = nextDate.AddMonths(properties.MonthlyEveryNMonths);
+                    nextDate = nextDate.AddMonths(properties.Interval);
                 }
             }
             else
@@ -333,8 +336,8 @@ namespace Kareke.SFScheduleHelper
         // ----------
         void YearlyCalculate()
         {
-            if (properties.IsYearlySpecific && properties.YearlySpecificMonth >= 1 && properties.YearlySpecificMonth <= 12
-                && properties.YearlySpecificMonthDay > 0)
+            if (properties.Week <= 0 && properties.Month >= 1 && properties.Month <= 12
+                && properties.DayOfMonth > 0)
             {
                 CalculateYealyBySpecificMonth();
             }
@@ -346,9 +349,9 @@ namespace Kareke.SFScheduleHelper
 
         void CalculateYealyBySpecificMonth()
         {
-            int daysInMonth = DateTime.DaysInMonth(nextDate.Year, properties.YearlySpecificMonth);
-            int monthDay = properties.YearlySpecificMonthDay <= daysInMonth ? properties.YearlySpecificMonthDay : daysInMonth;
-            nextDate = new DateTime(nextDate.Year, properties.YearlySpecificMonth, monthDay, nextDate.Hour, nextDate.Minute, nextDate.Second);
+            int daysInMonth = DateTime.DaysInMonth(nextDate.Year, properties.Month);
+            int monthDay = properties.DayOfMonth <= daysInMonth ? properties.DayOfMonth : daysInMonth;
+            nextDate = new DateTime(nextDate.Year, properties.Month, monthDay, nextDate.Hour, nextDate.Minute, nextDate.Second);
             if (nextDate.CompareTo(_startDate) < 0)
             {
                 nextDate = nextDate.AddYears(1);
@@ -356,23 +359,23 @@ namespace Kareke.SFScheduleHelper
             else
             {
                 AddDateToRecurrences();
-                nextDate = nextDate.AddYears(properties.YearlyEveryNYears);
+                nextDate = nextDate.AddYears(properties.Interval);
             }
         }
 
         void CalculateYearlyByWeek()
         {
 
-            DateTime monthStart = new DateTime(nextDate.Year, properties.YearlySpecificMonth, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
+            DateTime monthStart = new DateTime(nextDate.Year, properties.Month, 1, nextDate.Hour, nextDate.Minute, nextDate.Second);
             var monthStartWeekday = (int)(monthStart.DayOfWeek);
             DateTime weekStartDate = monthStart.AddDays(-monthStartWeekday);
 
             int nthWeek;
-            if (monthStartWeekday <= properties.MonthlyWeekDay) nthWeek = properties.YearlyNthWeek - 1;
-            else nthWeek = properties.YearlyNthWeek;
+            if (monthStartWeekday <= properties.DayOfWeek) nthWeek = properties.Week - 1;
+            else nthWeek = properties.Week;
 
             nextDate = weekStartDate.AddDays((nthWeek) * 7);
-            nextDate = nextDate.AddDays(properties.YearlyWeekDay);
+            nextDate = nextDate.AddDays(properties.DayOfWeek);
 
             if (monthStart.Month == nextDate.Month)
             {
@@ -383,7 +386,7 @@ namespace Kareke.SFScheduleHelper
                 else
                 {
                     AddDateToRecurrences();
-                    nextDate = nextDate.AddYears(properties.YearlyEveryNYears);
+                    nextDate = nextDate.AddYears(properties.Interval);
                 }
             }
             else
@@ -396,7 +399,7 @@ namespace Kareke.SFScheduleHelper
 
         void AddDateToRecurrences()
         {
-            if (properties.IsRangeEndDate && nextDate > properties.RangeEndDate) return;
+            if (properties.RecurrenceRange == RecurrenceRange.EndDate && nextDate > properties.EndDate) return;
 
             recurrenceDates.Add(nextDate);
             count++;

@@ -20,7 +20,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Daily_count1_Past_Found0()
         {
-            string rule = "FREQ=DAILY;";
+            string rule = "FREQ=DAILY;Count=1";
             DateTime startDate = new DateTime(2017, 09, 01, 10, 0, 0);
             TimeSpan duration = TimeSpan.FromHours(2);
 
@@ -32,7 +32,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Daily_count1_Current_Found1()
         {
-            string rule = "FREQ=DAILY;";
+            string rule = "FREQ=DAILY;Count=1";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             TimeSpan duration = TimeSpan.FromHours(2);
 
@@ -44,7 +44,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Daily_count1_Future_Found1()
         {
-            string rule = "FREQ=DAILY;";
+            string rule = "FREQ=DAILY;Count=1";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             TimeSpan duration = TimeSpan.FromHours(2);
 

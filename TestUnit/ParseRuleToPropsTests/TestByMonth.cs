@@ -89,7 +89,7 @@ namespace TestUnit.ParseRuleToPropsTests
             RecurrenceProperties props = parser.Convert(rule, startDate);
          
 			Assert.AreEqual(true, props.IsYearlySpecific);
-			Assert.AreEqual(1, props.YearlySpecificMonth);
+			Assert.AreEqual(1, props.Month);
         }   
 
 		[Test()]
@@ -100,7 +100,7 @@ namespace TestUnit.ParseRuleToPropsTests
             RecurrenceProperties props = parser.Convert(rule, startDate);
 
 			Assert.AreEqual(true, props.IsYearlySpecific);
-			Assert.AreEqual(6, props.YearlySpecificMonth);
+            Assert.AreEqual(6, props.Month);
         }   
 
 		[Test()]
@@ -111,7 +111,7 @@ namespace TestUnit.ParseRuleToPropsTests
             RecurrenceProperties props = parser.Convert(rule, startDate);
          
 			Assert.AreEqual(true, props.IsYearlySpecific);
-			Assert.AreEqual(12, props.YearlySpecificMonth);
+            Assert.AreEqual(12, props.Month);
         } 
          
         [Test()]

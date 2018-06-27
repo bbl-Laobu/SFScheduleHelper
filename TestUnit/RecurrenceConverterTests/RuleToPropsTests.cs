@@ -37,9 +37,9 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.DailyNDays, "DailyNDays");
+			Assert.AreEqual(1, props.Interval, "DailyNDays");
 			Assert.AreEqual(true, props.IsDailyEveryNDays, "IsDailyEveryNDays");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate, "IsRangeNoEndDate");
 		}
 
 		[Test()]
@@ -50,9 +50,9 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.WeeklyEveryNWeeks, "WeeklyEveryNWeeks");
+			Assert.AreEqual(1, props.Interval, "WeeklyEveryNWeeks");
 			//Assert.AreEqual(true, props.IsWeeklySaturday, "IsWeeklySaturday");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+            Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate, "IsRangeNoEndDate");
 		}
 
 		[Test()]
@@ -101,9 +101,9 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.DailyNDays, "DailyNDays");
+			Assert.AreEqual(1, props.Interval, "DailyNDays");
 			Assert.AreEqual(true, props.IsDailyEveryNDays, "IsDailyEveryNDays");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+            Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate, "IsRangeNoEndDate");
 		}
 
 		[Test()]
@@ -114,10 +114,10 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.DailyNDays, "DailyNDays");
+			Assert.AreEqual(1, props.Interval, "DailyNDays");
 			Assert.AreEqual(true, props.IsDailyEveryNDays, "IsDailyEveryNDays");
-			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
-			Assert.AreEqual(5, props.RangeRecurrenceCount, "RangeRecurrenceCount");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count, "IsRangeRecurrenceCount");
+			Assert.AreEqual(5, props.RecurrenceCount, "RangeRecurrenceCount");
 		}
 
 		[Test()]
@@ -129,10 +129,10 @@ namespace TestUnit.RecurrenceConverterTests
 
 
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.DailyNDays, "DailyNDays");
+			Assert.AreEqual(1, props.Interval, "DailyNDays");
 			Assert.AreEqual(true, props.IsDailyEveryNDays, "IsDailyEveryNDays");
-			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
-			Assert.AreEqual(new DateTime(2017, 06, 20, 23, 59, 59), props.RangeEndDate, "RangeEndDate");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.EndDate, "IsRangeEndDate");
+			Assert.AreEqual(new DateTime(2017, 06, 20, 23, 59, 59), props.EndDate, "RangeEndDate");
 		}
 
 		[Test()]
@@ -143,10 +143,10 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Daily, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(2, props.DailyNDays, "DailyNDays");
+			Assert.AreEqual(2, props.Interval, "DailyNDays");
 			Assert.AreEqual(true, props.IsDailyEveryNDays, "IsDailyEveryNDays");
-			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
-			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count, "IsRangeRecurrenceCount");
+			Assert.AreEqual(10, props.RecurrenceCount, "RangeRecurrenceCount");
 		}
 
 		// WEEKLY Tests
@@ -159,11 +159,11 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.WeeklyEveryNWeeks, "WeeklyEveryNWeeks");
-			Assert.AreEqual(true, props.IsWeeklyMonday, "IsWeeklyMonday");
-			Assert.AreEqual(true, props.IsWeeklyWednesday, "IsWeeklyWednesday");
-			Assert.AreEqual(true, props.IsWeeklyFriday, "IsWeeklyFriday");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+			Assert.AreEqual(1, props.Interval, "WeeklyEveryNWeeks");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday, "IsWeeklyMonday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday, "IsWeeklyWednesday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday, "IsWeeklyFriday");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate, "IsRangeNoEndDate");
 		}
 
 		[Test()]
@@ -174,10 +174,10 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.WeeklyEveryNWeeks, "WeeklyEveryNWeeks");
-			Assert.AreEqual(true, props.IsWeeklyThursday, "IsWeeklyThursday");
-			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
-			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
+			Assert.AreEqual(1, props.Interval, "WeeklyEveryNWeeks");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday, "IsWeeklyThursday");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count, "IsRangeRecurrenceCount");
+			Assert.AreEqual(10, props.RecurrenceCount, "RangeRecurrenceCount");
 		}
 
 		[Test()]
@@ -188,10 +188,10 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.WeeklyEveryNWeeks, "WeeklyEveryNWeeks");
-			Assert.AreEqual(true, props.IsWeeklyMonday, "IsWeeklyMonday");
-			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
-            Assert.AreEqual(new DateTime(2017, 07, 20, 23, 59, 59), props.RangeEndDate, "RangeEndDate ");
+			Assert.AreEqual(1, props.Interval, "WeeklyEveryNWeeks");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday, "IsWeeklyMonday");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.EndDate, "IsRangeEndDate");
+            Assert.AreEqual(new DateTime(2017, 07, 20, 23, 59, 59), props.EndDate, "RangeEndDate ");
 		}
 
 		[Test()]
@@ -202,12 +202,12 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(2, props.WeeklyEveryNWeeks, "WeeklyEveryNWeeks");
-			Assert.AreEqual(true, props.IsWeeklyMonday, "IsWeeklyMonday");
-			Assert.AreEqual(true, props.IsWeeklyWednesday, "IsWeeklyWednesday");
-			Assert.AreEqual(true, props.IsWeeklyFriday, "IsWeeklyFriday ");
-			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount ");
-			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount ");
+			Assert.AreEqual(2, props.Interval, "WeeklyEveryNWeeks");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday, "IsWeeklyMonday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday, "IsWeeklyWednesday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday, "IsWeeklyFriday ");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count, "IsRangeRecurrenceCount ");
+			Assert.AreEqual(10, props.RecurrenceCount, "RangeRecurrenceCount ");
 		}
 
 		// Every Day Tests
@@ -220,13 +220,13 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.WeeklyEveryNWeeks, "WeeklyEveryNWeeks");
-			Assert.AreEqual(true, props.IsWeeklyMonday, "IsWeeklyMonday");
-			Assert.AreEqual(true, props.IsWeeklyTuesday, "IsWeeklyTuesday");
-			Assert.AreEqual(true, props.IsWeeklyWednesday, "IsWeeklyWednesday");
-			Assert.AreEqual(true, props.IsWeeklyThursday, "IsWeeklyThursday");
-			Assert.AreEqual(true, props.IsWeeklyFriday, "IsWeeklyFriday");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+			Assert.AreEqual(1, props.Interval, "WeeklyEveryNWeeks");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday, "IsWeeklyMonday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday, "IsWeeklyTuesday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday, "IsWeeklyWednesday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday, "IsWeeklyThursday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday, "IsWeeklyFriday");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate, "IsRangeNoEndDate");
 		}
 
 		[Test()]
@@ -237,14 +237,14 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.WeeklyEveryNWeeks, "WeeklyEveryNWeeks");
-			Assert.AreEqual(true, props.IsWeeklyMonday, "IsWeeklyMonday");
-			Assert.AreEqual(true, props.IsWeeklyTuesday, "IsWeeklyTuesday");
-			Assert.AreEqual(true, props.IsWeeklyWednesday, "IsWeeklyWednesday");
-			Assert.AreEqual(true, props.IsWeeklyThursday, "IsWeeklyThursday");
-			Assert.AreEqual(true, props.IsWeeklyFriday, "IsWeeklyFriday");
-			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
-			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
+			Assert.AreEqual(1, props.Interval, "WeeklyEveryNWeeks");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday, "IsWeeklyMonday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday,"IsWeeklyTuesday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday, "IsWeeklyWednesday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday, "IsWeeklyThursday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday, "IsWeeklyFriday");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count, "IsRangeRecurrenceCount");
+			Assert.AreEqual(10, props.RecurrenceCount, "RangeRecurrenceCount");
 		}
 
 		[Test()]
@@ -255,14 +255,14 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Weekly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.WeeklyEveryNWeeks, "WeeklyEveryNWeeks");
-			Assert.AreEqual(true, props.IsWeeklyMonday, "IsWeeklyMonday");
-			Assert.AreEqual(true, props.IsWeeklyTuesday, "IsWeeklyTuesday");
-			Assert.AreEqual(true, props.IsWeeklyWednesday, "IsWeeklyWednesday");
-			Assert.AreEqual(true, props.IsWeeklyThursday, "IsWeeklyThursday");
-			Assert.AreEqual(true, props.IsWeeklyFriday, "IsWeeklyFriday");
-			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
-			Assert.AreEqual(new DateTime(2017, 07, 15, 23, 59, 59), props.RangeEndDate, "RangeEndDate");
+			Assert.AreEqual(1, props.Interval, "WeeklyEveryNWeeks");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Monday) == WeekDays.Monday, "IsWeeklyMonday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Tuesday) == WeekDays.Tuesday, "IsWeeklyTuesday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Wednesday) == WeekDays.Wednesday, "IsWeeklyWednesday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Thursday) == WeekDays.Thursday, "IsWeeklyThursday");
+            Assert.AreEqual(true, (props.WeekDays & WeekDays.Friday) == WeekDays.Friday, "IsWeeklyFriday");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.EndDate, "IsRangeEndDate");
+			Assert.AreEqual(new DateTime(2017, 07, 15, 23, 59, 59), props.EndDate, "RangeEndDate");
 		}
 
 		// MONTHLY Tests
@@ -275,10 +275,10 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			Assert.AreEqual(1, props.Interval, "MonthlyEveryNMonths ");
 			Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
-			Assert.AreEqual(15, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+			Assert.AreEqual(15, props.DayOfMonth, "MonthlySpecificMonthDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate, "IsRangeNoEndDate");
 		}
 
 		[Test()]
@@ -289,11 +289,11 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			Assert.AreEqual(1, props.Interval, "MonthlyEveryNMonths ");
 			Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
-			Assert.AreEqual(16, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
-			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
-			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
+			Assert.AreEqual(16, props.DayOfMonth, "MonthlySpecificMonthDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count, "IsRangeRecurrenceCount");
+			Assert.AreEqual(10, props.RecurrenceCount, "RangeRecurrenceCount");
 		}
 
 		[Test()]
@@ -304,11 +304,11 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
+			Assert.AreEqual(1, props.Interval, "MonthlyEveryNMonths ");
 			Assert.AreEqual(true, props.IsMonthlySpecific, "IsMonthlySpecific");
-			Assert.AreEqual(16, props.MonthlySpecificMonthDay, "MonthlySpecificMonthDay");
-			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
-            Assert.AreEqual(new DateTime(2018, 06, 11, 23, 59, 59), props.RangeEndDate, "RangeEndDate");
+			Assert.AreEqual(16, props.DayOfMonth, "MonthlySpecificMonthDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.EndDate, "IsRangeEndDate");
+            Assert.AreEqual(new DateTime(2018, 06, 11, 23, 59, 59), props.EndDate, "RangeEndDate");
 		}
 
 		[Test()]
@@ -319,10 +319,10 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-			Assert.AreEqual(2, props.MonthlyNthWeek, "MonthlyNthWeek");
-			Assert.AreEqual(5, props.MonthlyWeekDay, "MonthlyWeekDay");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+			Assert.AreEqual(1, props.Interval, "MonthlyEveryNMonths ");
+			Assert.AreEqual(2, props.Week, "MonthlyNthWeek");
+			Assert.AreEqual(5, props.DayOfWeek, "MonthlyWeekDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate, "IsRangeNoEndDate");
 		}
 
 		[Test()]
@@ -333,11 +333,11 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-			Assert.AreEqual(4, props.MonthlyNthWeek, "MonthlyNthWeek");
-			Assert.AreEqual(3, props.MonthlyWeekDay, "MonthlyWeekDay");
-			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
-			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
+			Assert.AreEqual(1, props.Interval, "MonthlyEveryNMonths ");
+			Assert.AreEqual(4, props.Week, "MonthlyNthWeek");
+			Assert.AreEqual(3, props.DayOfWeek, "MonthlyWeekDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count, "IsRangeRecurrenceCount");
+			Assert.AreEqual(10, props.RecurrenceCount, "RangeRecurrenceCount");
 		}
 
 		[Test()]
@@ -348,11 +348,11 @@ namespace TestUnit.RecurrenceConverterTests
             RecurrenceProperties props = converter.Convert(rule, startDate);
 
 			Assert.AreEqual(RecurrenceType.Monthly, props.RecurrenceType, "RecurrenceType");
-			Assert.AreEqual(1, props.MonthlyEveryNMonths, "MonthlyEveryNMonths ");
-			Assert.AreEqual(4, props.MonthlyNthWeek, "MonthlyNthWeek");
-			Assert.AreEqual(5, props.MonthlyWeekDay, "MonthlyWeekDay");
-			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
-            Assert.AreEqual(new DateTime(2018, 06, 11, 23, 59, 59), props.RangeEndDate, "RangeEndDate");
+			Assert.AreEqual(1, props.Interval, "MonthlyEveryNMonths ");
+			Assert.AreEqual(4, props.Week, "MonthlyNthWeek");
+			Assert.AreEqual(5, props.DayOfWeek, "MonthlyWeekDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.EndDate, "IsRangeEndDate");
+            Assert.AreEqual(new DateTime(2018, 06, 11, 23, 59, 59), props.EndDate, "RangeEndDate");
 		}
 
 		// YEARLY Tests
@@ -366,10 +366,10 @@ namespace TestUnit.RecurrenceConverterTests
 
 			Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
 			Assert.AreEqual(true, props.IsYearlySpecific, "IsYearlySpecific ");
-			Assert.AreEqual(1, props.YearlyEveryNYears, "YearlyEveryNYears");
-			Assert.AreEqual(12, props.YearlySpecificMonth, "YearlySpecificMonth");
-			Assert.AreEqual(15, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
-			Assert.AreEqual(true, props.IsRangeNoEndDate, "IsRangeNoEndDate");
+			Assert.AreEqual(1, props.Interval, "YearlyEveryNYears");
+			Assert.AreEqual(12, props.Month, "YearlySpecificMonth");
+			Assert.AreEqual(15, props.DayOfMonth, "YearlySpecificMonthDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.NoEndDate, "IsRangeNoEndDate");
 		}
 
 		[Test()]
@@ -381,11 +381,11 @@ namespace TestUnit.RecurrenceConverterTests
 
 			Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
 			Assert.AreEqual(true, props.IsYearlySpecific, "IsYearlySpecific ");
-			Assert.AreEqual(1, props.YearlyEveryNYears, "YearlyEveryNYears");
-			Assert.AreEqual(12, props.YearlySpecificMonth, "YearlySpecificMonth");
-			Assert.AreEqual(10, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
-			Assert.AreEqual(true, props.IsRangeRecurrenceCount, "IsRangeRecurrenceCount");
-			Assert.AreEqual(10, props.RangeRecurrenceCount, "RangeRecurrenceCount");
+			Assert.AreEqual(1, props.Interval, "YearlyEveryNYears");
+			Assert.AreEqual(12, props.Month, "YearlySpecificMonth");
+            Assert.AreEqual(10, props.DayOfMonth, "YearlySpecificMonthDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.Count, "IsRangeRecurrenceCount");
+			Assert.AreEqual(10, props.RecurrenceCount, "RangeRecurrenceCount");
 		}
 
 		[Test()]
@@ -397,11 +397,11 @@ namespace TestUnit.RecurrenceConverterTests
 
 			Assert.AreEqual(RecurrenceType.Yearly, props.RecurrenceType, "RecurrenceType");
 			Assert.AreEqual(true, props.IsYearlySpecific, "IsYearlySpecific ");
-			Assert.AreEqual(1, props.YearlyEveryNYears, "YearlyEveryNYears");
-			Assert.AreEqual(12, props.YearlySpecificMonth, "YearlySpecificMonth");
-			Assert.AreEqual(12, props.YearlySpecificMonthDay, "YearlySpecificMonthDay");
-			Assert.AreEqual(true, props.IsRangeEndDate, "IsRangeEndDate");
-            Assert.AreEqual(new DateTime(2018, 06, 11, 23, 59, 59), props.RangeEndDate, "RangeEndDate");
+			Assert.AreEqual(1, props.Interval, "YearlyEveryNYears");
+			Assert.AreEqual(12, props.Month, "YearlySpecificMonth");
+			Assert.AreEqual(12, props.DayOfMonth, "YearlySpecificMonthDay");
+			Assert.AreEqual(true, props.RecurrenceRange == RecurrenceRange.EndDate, "IsRangeEndDate");
+            Assert.AreEqual(new DateTime(2018, 06, 11, 23, 59, 59), props.EndDate, "RangeEndDate");
 		}   
 
 		[Test()]

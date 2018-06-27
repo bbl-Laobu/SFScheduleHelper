@@ -20,7 +20,7 @@ namespace TestUnit.RecurrencesCalculatorTests
         [Test()]
         public void Daily_count1_duration2h()
         {
-            string rule = "FREQ=DAILY;";
+            string rule = "FREQ=DAILY;COUNT=1";
             DateTime startDate = new DateTime(2018, 09, 01, 10, 0, 0);
             TimeSpan duration = TimeSpan.FromHours(2);
 
