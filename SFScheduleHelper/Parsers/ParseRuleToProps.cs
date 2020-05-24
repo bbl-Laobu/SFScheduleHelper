@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Syncfusion.SfSchedule.XForms;
 
-[assembly: InternalsVisibleTo("TestUnit")]
+[assembly: InternalsVisibleTo("TestNUnit")]
 
 namespace Kareke.SFScheduleHelper
 {
